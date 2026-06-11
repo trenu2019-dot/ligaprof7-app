@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LigaPro F7 PWA</title>
+<link rel="manifest" href="/manifest.webmanifest">
+<meta name="theme-color" content="#001b0d">
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<div class="installCard">
+<h1>LigaPro F7</h1>
+<p>App PWA instalable.</p>
+<button id="installBtn" class="installBtn" style="display:none">Instalar app</button>
+<a class="installBtn" href="/">Abrir LigaPro F7</a>
+</div>
+<script>
+let deferredPrompt=null;
+window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBtn').style.display='block';});
+document.getElementById('installBtn').addEventListener('click',async()=>{if(!deferredPrompt)return;deferredPrompt.prompt();await deferredPrompt.userChoice;deferredPrompt=null;});
+if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-worker.js').catch(()=>{});}
+</script>
+</body>
+</html>

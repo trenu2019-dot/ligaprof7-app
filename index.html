@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>LigaPro F7 V32.1.1 Hotfix Celular WiFi</title>
+<link rel="manifest" href="/manifest.webmanifest"/>
+<meta name="theme-color" content="#001b0d"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="LigaPro F7"/>
+<link rel="apple-touch-icon" href="/assets/icons/icon-192.png"/>
+<link rel="stylesheet" href="styles.css"/>
+</head>
+<body>
+<div id="toast" class="toast"></div>
+<main class="layout">
+  <aside class="left">
+    <div class="brand"><div class="mark">F7</div><div><h1>LigaPro <span>F7</span></h1><b>V32.1 PWA</b></div></div>
+    <p class="notice">PWA instalable: ícono en celular, pantalla completa, carga Excel, QR, reportes y backup.</p>
+    <div id="roleBox" class="roleBox">Sin sesión</div>
+    <button id="pwaInstallBtn" class="pwaInstallBtn" style="display:none">Instalar app</button>
+    <a class="pwaLink" href="/instalar" target="_blank">Guía instalación</a>
+    <nav id="nav"></nav>
+    <div class="demo">
+      <b>Acceso directo</b>
+      <button onclick="loginDemo('admin')">Entrar Admin</button>
+      <button onclick="loginDemo('arbitro')">Entrar Árbitro</button>
+      <button onclick="loginDemo('director')">Entrar Director</button>
+      <button onclick="loginDemo('consulta')">Entrar Consulta</button>
+    </div>
+  </aside>
+
+  <section class="center">
+    <div class="phone">
+      <img id="mock" src="assets/login.png" alt="LigaPro F7"/>
+      <div id="loginCard" class="loginCard">
+        <h2>Acceso LigaPro F7</h2>
+        <input id="username" placeholder="Usuario: admin"/>
+        <input id="pin" placeholder="PIN: 2026" type="password"/>
+        <button onclick="loginManual()">Ingresar</button>
+        <div class="mini">
+          <button onclick="loginDemo('admin')">Admin</button>
+          <button onclick="loginDemo('arbitro')">Árbitro</button>
+          <button onclick="loginDemo('director')">Director</button>
+          <button onclick="loginDemo('consulta')">Consulta</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <aside class="right">
+    <h2 id="moduleTitle">Inicio</h2>
+    <p id="moduleDesc">Panel operativo estable.</p>
+    <div class="grid">
+      <div class="metric"><small>Equipos</small><b id="kTeams">0</b></div>
+      <div class="metric"><small>Jugadores</small><b id="kPlayers">0</b></div>
+      <div class="metric"><small>Ingresos</small><b id="kIncome">$0</b></div>
+      <div class="metric"><small>Pendiente</small><b id="kPending">$0</b></div>
+    </div>
+    <div id="loadPanel"></div>
+    <div class="actions">
+      <button onclick="openUrl('/dashboard')">Dashboard</button>
+      <button onclick="openUrl('/checklist')">Checklist</button>
+      <button onclick="openUrl('/api/reports/enterprise.xlsx')">XLSX</button>
+      <button onclick="openUrl('/api/reports/enterprise.pdf')">PDF</button>
+      <button onclick="openUrl('/api/backup/full')">Backup</button>
+      <button onclick="openQr()">QR jugador</button>
+      <button onclick="logout()">Cerrar sesión</button>
+    </div>
+    <div id="content" class="content"></div>
+  </aside>
+</main>
+<script src="app.js"></script>
+</body>
+</html>

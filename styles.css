@@ -1,0 +1,146 @@
+:root{--green:#00e676;--gold:#f6c945;--red:#ff4058;--muted:#a9b8af}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 0,rgba(0,230,118,.18),transparent 35%),#000;color:#f6fff9;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
+.layout{min-height:100vh;display:grid;grid-template-columns:330px minmax(420px,1fr) 420px;gap:20px;padding:26px}
+.left,.right{border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(145deg,rgba(8,27,17,.94),rgba(1,5,3,.98));padding:22px;align-self:start;max-height:calc(100vh - 52px);overflow:auto}
+.brand{display:flex;gap:14px;align-items:center}.mark{width:58px;height:48px;border-radius:15px;background:linear-gradient(135deg,#fff 0 48%,var(--green) 48%);display:grid;place-items:center;color:#06140d;font-weight:950;font-size:26px}.brand h1{margin:0;font-size:28px}.brand span,.brand b{color:var(--green)}.brand b{font-size:12px;color:var(--gold);letter-spacing:.12em}
+.notice,.moduleDesc{color:var(--muted);line-height:1.4}.roleBox{border:1px solid rgba(0,230,118,.45);border-radius:16px;padding:12px;margin:14px 0;color:var(--green);font-weight:900}
+nav{display:grid;gap:8px;margin:14px 0}nav button,.demo button,.actions button,.loginCard button{min-height:44px;border-radius:14px;border:1px solid rgba(0,230,118,.45);background:rgba(0,230,118,.09);color:var(--green);font-weight:900;cursor:pointer}nav button.active{background:rgba(0,230,118,.22);box-shadow:0 0 18px rgba(0,230,118,.14)}.demo{border-top:1px solid rgba(255,255,255,.13);padding-top:16px;display:grid;gap:8px}.demo b{color:var(--gold)}
+.center{display:grid;place-items:center}.phone{position:relative;width:min(430px,90vw);border-radius:46px;box-shadow:0 0 70px rgba(0,230,118,.15)}.phone img{width:100%;display:block;border-radius:46px}.loginCard{position:absolute;left:7%;right:7%;bottom:5%;z-index:5;background:rgba(0,0,0,.83);border:2px solid rgba(0,230,118,.7);border-radius:24px;padding:16px;box-shadow:0 0 30px rgba(0,230,118,.16)}.loginCard h2{margin:0 0 10px;text-align:center;color:var(--gold);font-size:17px}.loginCard input{width:100%;height:42px;margin:5px 0;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:#08100b;color:white;padding:0 12px;font-weight:800}.loginCard>button{width:100%;margin-top:8px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.mini button{min-height:34px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;background:rgba(255,255,255,.04)}.metric small{display:block;color:var(--muted);text-transform:uppercase;font-size:11px}.metric b{font-size:22px;color:var(--green)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button:nth-child(even){border-color:rgba(246,201,69,.45);color:var(--gold);background:rgba(246,201,69,.08)}
+.row{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:11px;margin:8px 0;background:rgba(255,255,255,.04);display:flex;justify-content:space-between;gap:12px}.row small{display:block;color:var(--muted)}.pill{color:var(--green);border:1px solid rgba(0,230,118,.45);border-radius:999px;padding:5px 8px;font-size:12px;height:max-content}.toast{position:fixed;right:20px;bottom:20px;background:#08100b;border:1px solid var(--green);border-radius:14px;padding:12px 16px;color:white;display:none;z-index:99}
+@media(max-width:1100px){.layout{grid-template-columns:1fr}.left,.right{max-height:none}.center{order:-1}}
+
+/* V30.3 Carga Real */
+.formBox{
+  border:1px solid rgba(0,230,118,.38);
+  border-radius:18px;
+  padding:14px;
+  margin:14px 0;
+  background:rgba(0,230,118,.055);
+}
+.formBox h3{
+  margin:0 0 10px;
+  color:var(--gold);
+  font-size:15px;
+}
+.btnGrid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin-bottom:10px;
+}
+.btnGrid button{
+  min-height:42px;
+  border-radius:13px;
+  border:1px solid rgba(0,230,118,.45);
+  background:rgba(0,230,118,.09);
+  color:var(--green);
+  font-weight:900;
+  cursor:pointer;
+}
+.btnGrid button:nth-child(even){
+  border-color:rgba(246,201,69,.45);
+  color:var(--gold);
+  background:rgba(246,201,69,.08);
+}
+
+
+/* V30.4 Carga masiva */
+.bulkBox{
+  margin-top:14px;
+  border:1px solid rgba(246,201,69,.42);
+  border-radius:18px;
+  padding:14px;
+  background:rgba(246,201,69,.055);
+}
+.bulkBox textarea{
+  width:100%;
+  min-height:170px;
+  resize:vertical;
+  border-radius:14px;
+  border:1px solid rgba(255,255,255,.18);
+  background:#050805;
+  color:#f6fff9;
+  padding:12px;
+  font-family:Consolas,monospace;
+  font-size:12px;
+}
+.bulkResult{
+  margin-top:10px;
+  border:1px solid rgba(255,255,255,.12);
+  border-radius:14px;
+  padding:12px;
+  background:rgba(0,0,0,.25);
+  color:#f6fff9;
+  line-height:1.4;
+}
+.bulkIssue{
+  margin-top:6px;
+  padding:7px;
+  border-radius:10px;
+  background:rgba(255,64,88,.10);
+  border:1px solid rgba(255,64,88,.25);
+  color:#ffd7dc;
+  font-size:12px;
+}
+
+/* V30.4.1 hotfix csv buttons */
+.formBox input[type=file]{width:100%;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px;margin:8px 0;background:#050805;color:#f6fff9}
+
+/* V30.4.2 Excel paste */
+
+/* V31 Demo Presentable Celular */
+.v31badge{display:inline-block;background:linear-gradient(135deg,#00ff88,#f6c945);color:#001b0d;font-weight:900;padding:4px 8px;border-radius:999px;}
+
+
+/* V32 PWA */
+.pwaInstallBtn{
+  width:100%;
+  border:0;
+  border-radius:16px;
+  padding:13px 14px;
+  background:linear-gradient(135deg,#00ff88,#f6c945);
+  color:#001b0d;
+  font-weight:1000;
+  cursor:pointer;
+  margin:10px 0;
+  box-shadow:0 10px 24px rgba(0,230,118,.20);
+}
+.pwaLink{
+  display:block;
+  text-align:center;
+  color:#f6c945;
+  text-decoration:none;
+  border:1px solid rgba(246,201,69,.40);
+  border-radius:14px;
+  padding:10px;
+  margin:8px 0 12px;
+}
+.installCard{
+  max-width:430px;
+  margin:40px auto;
+  padding:24px;
+  background:#062916;
+  border:1px solid #00b050;
+  border-radius:24px;
+  color:#fff;
+  font-family:Arial,sans-serif;
+}
+.installCard h1{color:#00ff88}
+.installBtn{
+  display:block;
+  width:100%;
+  box-sizing:border-box;
+  text-align:center;
+  border:0;
+  margin:10px 0;
+  padding:14px;
+  border-radius:14px;
+  background:#00b050;
+  color:#001b0d;
+  font-weight:900;
+  text-decoration:none;
+}
+@media (display-mode: standalone){
+  .pwaLink{display:none}
+}
