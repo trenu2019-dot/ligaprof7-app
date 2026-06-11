@@ -1,9 +1,9 @@
 services:
   - type: web
-    name: ligaprof7-v32-pwa
-    env: python
-    buildCommand: pip install -r requirements.txt
-    startCommand: python backend/server.py
+    name: ligaprof7-app
+    env: docker
+    plan: free
+    dockerfilePath: ./Dockerfile
     envVars:
       - key: PORT
         value: 10000

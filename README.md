@@ -1,3 +1,7 @@
+## V32.2 Render Fix
+
+Esta versión arranca desde `server.py` en la raíz para evitar error de `/app/backend/server.py`.
+
 # LigaPro F7 V32 — PWA Instalable
 
 Esta versión convierte la demo en una PWA instalable.

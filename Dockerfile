@@ -5,4 +5,4 @@ RUN pip install --no-cache-dir -r requirements.txt
 COPY . .
 ENV PORT=8056
 EXPOSE 8056
-CMD ["python", "backend/server.py"]
+CMD ["python", "server.py"]
