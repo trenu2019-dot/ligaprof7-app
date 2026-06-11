@@ -1,0 +1,19 @@
+LIGAPRO F7 V32.1 - CELULAR RED WIFI
+
+Si no abre en el celular:
+
+1. Ejecuta primero:
+   1_PERMITIR_FIREWALL_8056.bat
+
+2. Luego ejecuta:
+   INICIAR_APP_V32_1_CELULAR_WIFI.bat
+
+3. Deja abierta la ventana negra.
+
+4. En la computadora abre:
+   http://127.0.0.1:8056/celular
+
+5. En el celular, conectado al mismo WiFi, abre la URL que aparece ahí:
+   ejemplo: http://192.168.1.75:8056
+
+No uses 127.0.0.1 en el celular.
