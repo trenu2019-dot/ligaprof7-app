@@ -7,33 +7,66 @@ let token=localStorage.getItem("ligaprof7_v32_token")||"";
 let currentUser=null;
 let data=null;
 let module="inicio";
+let mobileScreenOpen=false;
 
 const modules=[
- ["inicio","Panel Pro","assets/inicio.png"],
- ["pwa","Instalar","assets/inicio.png"],
+ ["inicio","Inicio","assets/inicio.png"],
+ ["pwa","Instalar app","assets/inicio.png"],
  ["celular","Celular","assets/inicio.png"],
  ["demo","Modo demo","assets/estadisticas.png"],
  ["masiva","Carga Excel","assets/estadisticas.png"],
- ["carga","Captura","assets/equipos.png"],
+ ["carga","Captura manual","assets/equipos.png"],
  ["equipos","Equipos","assets/equipos.png"],
  ["jugadores","Jugadores","assets/registro_qr.png"],
  ["calendario","Calendario","assets/calendario.png"],
  ["resultados","Resultados","assets/resultados.png"],
  ["tabla","Tabla","assets/tabla.png"],
  ["pagos","Pagos","assets/pagos.png"],
- ["reportes","Reportes Pro","assets/estadisticas.png"],
+ ["reportes","Reportes","assets/estadisticas.png"],
  ["tv","LigaPro TV","assets/tv.png"]
 ];
 
 function $(id){return document.getElementById(id)}
+function isMobileAppView(){return window.matchMedia && window.matchMedia("(max-width:760px)").matches}
+function updateMobileShell(){
+ const isOpen = isMobileAppView() && mobileScreenOpen;
+ document.body.classList.toggle("screen-open", !!isOpen);
+ const titleEl=$("mobileScreenTitle");
+ if(titleEl){
+   const found=modules.find(x=>x[0]===module);
+   titleEl.textContent=found?found[1]:"LigaPro F7";
+ }
+ const roleEl=$("mobileScreenRole");
+ if(roleEl){
+   roleEl.textContent=currentUser?(currentUser.role||"usuario"):"sin sesión";
+ }
+}
+function goHome(){
+ module="inicio";
+ mobileScreenOpen=false;
+ updateMobileShell();
+ render();
+ window.scrollTo({top:0,behavior:"smooth"});
+}
 function toast(m){const t=$("toast");t.textContent=m;t.style.display="block";setTimeout(()=>t.style.display="none",3500)}
 function money(n){return "$"+Number(n||0).toLocaleString("es-MX")}
 function auth(extra={}){return token?{...extra,Authorization:"Bearer "+token}:extra}
 async function api(url,opt={}){const r=await fetch(url,opt);const txt=await r.text();let j={};try{j=JSON.parse(txt)}catch{};if(!r.ok)throw new Error(j.error||txt||"Error");return j}
 async function load(){const j=await api("/api/data");data=j.data;render()}
 async function save(){if(!currentUser){toast("Primero inicia sesión");return false}try{await api("/api/data",{method:"POST",headers:auth({"Content-Type":"application/json"}),body:JSON.stringify({data})});await load();toast("Datos guardados");return true}catch(e){toast("No se guardó: "+e.message);return false}}
-function setModule(m){module=m;document.body.dataset.module=m;const found=modules.find(x=>x[0]===m);if(found && $("mock")) $("mock").src=found[2];render();window.scrollTo({top:0,behavior:"smooth"})}
-function renderNav(){ $("nav").innerHTML=modules.map(m=>`<button class="${module===m[0]?'active':''}" data-module="${m[0]}">${m[1]}</button>`).join("")}
+function setModule(m){
+ module=m;
+ mobileScreenOpen = isMobileAppView() && m!=="inicio";
+ document.body.dataset.module=m;
+ const found=modules.find(x=>x[0]===m);
+ if(found && $("mock")) $("mock").src=found[2];
+ updateMobileShell();
+ render();
+ const right=document.querySelector(".right");
+ if(right) right.scrollTo({top:0,behavior:"smooth"});
+ if(!mobileScreenOpen) window.scrollTo({top:0,behavior:"smooth"});
+})}
+function renderNav(){ $("nav").innerHTML=modules.map(m=>`<button class="${module===m[0]?'active':''}" data-module="${m[0]}"><span>${m[1]}</span><small>Abrir pantalla</small></button>`).join("")}
 function teamName(id){return (data.teams||[]).find(t=>t.id===id)?.name||id}
 function playerName(id){return (data.players||[]).find(p=>p.id===id)?.name||id}
 function activeTournament(){return data.tournaments?.[0]?.id||"TOR-REAL"}
@@ -44,6 +77,7 @@ function slugId(prefix, text){return prefix+"-"+String(text||"REAL").normalize("
 function render(){
  if(!data)return;
  document.body.dataset.module=module;
+ updateMobileShell();
  renderNav();
  $("loginCard").style.display=currentUser?"none":"block";
  $("roleBox").innerHTML=currentUser?`Sesión: ${currentUser.name}<br><small>${currentUser.role}</small>`:"Sin sesión";
@@ -55,11 +89,11 @@ function render(){
 
  let rows=[],title="Carga masiva",desc="Administración profesional del torneo en tiempo real.";
  if(module==="inicio"){
-   title="Dashboard LigaPro F7";
-   desc="Vista ejecutiva V1.1 Pro: operación, administración y seguimiento del torneo.";
+   title="Inicio LigaPro F7";
+   desc="Menú principal. Toca un módulo para abrir una pantalla independiente tipo app.";
    rows=[
     ["Centro de mando","Control de equipos, jugadores, calendario, pagos y reportes desde una sola app."],
-    ["Operación móvil","Diseño optimizado para celular con navegación tipo tarjetas."],
+    ["Pantallas reales","Cada módulo se abre como pantalla completa con botón para regresar."],
     ["Datos del torneo","Consulta tabla, resultados, pagos pendientes y reportes ejecutivos."],
     ["Listo para presentar","Versión comercial para equipos, árbitros, patrocinadores y directores."]
    ];
@@ -443,3 +477,5 @@ function setupPWA(){
 }
 
 setupPWA();
+
+window.addEventListener("resize", updateMobileShell);

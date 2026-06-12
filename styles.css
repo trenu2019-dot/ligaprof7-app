@@ -1,3 +1,4 @@
+/* LIGAPRO_F7_V1_2_APP_PANTALLAS_REALES_VERIFICADO */
 :root{--green:#00e676;--gold:#f6c945;--red:#ff4058;--muted:#a9b8af}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 0,rgba(0,230,118,.18),transparent 35%),#000;color:#f6fff9;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
 .layout{min-height:100vh;display:grid;grid-template-columns:330px minmax(420px,1fr) 420px;gap:20px;padding:26px}
@@ -552,3 +553,336 @@ nav button.active{
     z-index:2;
   }
 }
+
+
+/* =========================================================
+   LIGAPRO F7 V1.2 - PANTALLAS REALES TIPO APP
+   ========================================================= */
+.mobileScreenBar,
+.mobileBottomNav{
+  display:none;
+}
+
+@media(max-width:760px){
+  html,body{
+    height:100%;
+    min-height:100%;
+    overflow-x:hidden;
+  }
+
+  body{
+    background:#020805;
+  }
+
+  .layout{
+    display:block;
+    padding:0;
+    min-height:100vh;
+  }
+
+  /* HOME: menú principal, ya no muestra el contenido abajo */
+  body:not(.screen-open) .right,
+  body:not(.screen-open) .center{
+    display:none !important;
+  }
+
+  body:not(.screen-open) .left{
+    display:block;
+    min-height:100vh;
+    border-radius:0;
+    padding:24px 18px 96px;
+    max-height:none;
+    overflow:visible;
+  }
+
+  body:not(.screen-open) .brand{
+    margin-top:8px;
+  }
+
+  body:not(.screen-open) .brand h1{
+    font-size:28px;
+  }
+
+  body:not(.screen-open) .notice{
+    font-size:15px;
+    color:#d8efe4;
+  }
+
+  body:not(.screen-open) .roleBox{
+    font-size:14px;
+    border-radius:20px;
+  }
+
+  body:not(.screen-open) nav{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+    margin-top:18px;
+  }
+
+  body:not(.screen-open) nav button{
+    min-height:108px;
+    border-radius:26px;
+    padding:46px 12px 12px 14px;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:flex-end;
+    font-size:14px;
+    line-height:1.1;
+    position:relative;
+  }
+
+  body:not(.screen-open) nav button span{
+    display:block;
+    font-weight:950;
+  }
+
+  body:not(.screen-open) nav button small{
+    display:block;
+    margin-top:7px;
+    color:rgba(230,255,240,.70);
+    font-size:11px;
+    font-weight:700;
+  }
+
+  body:not(.screen-open) nav button::after{
+    content:"›";
+    position:absolute;
+    right:16px;
+    top:14px;
+    color:var(--lp-green);
+    font-size:27px;
+    font-weight:900;
+  }
+
+  body:not(.screen-open) nav button.active{
+    border-color:rgba(0,240,122,.40);
+  }
+
+  body:not(.screen-open) .pwaLink,
+  body:not(.screen-open) .pwaInstallBtn{
+    display:none !important;
+  }
+
+  body:not(.screen-open) .demo{
+    display:none !important;
+  }
+
+  /* SCREEN OPEN: pantalla independiente */
+  body.screen-open{
+    overflow:hidden;
+  }
+
+  body.screen-open .left,
+  body.screen-open .center{
+    display:none !important;
+  }
+
+  body.screen-open .right{
+    display:block !important;
+    position:fixed;
+    inset:0;
+    margin:0;
+    padding:86px 16px 92px;
+    width:100vw;
+    height:100vh;
+    overflow-y:auto;
+    border:none;
+    border-radius:0;
+    background:
+      radial-gradient(circle at 50% -16%, rgba(0,240,122,.22), transparent 36%),
+      linear-gradient(180deg,#02130a 0%,#020706 48%,#000 100%);
+    box-shadow:none;
+    z-index:10;
+  }
+
+  body.screen-open .mobileScreenBar{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:66px;
+    padding:12px 14px;
+    z-index:40;
+    background:rgba(1,12,7,.94);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(0,240,122,.22);
+  }
+
+  .mobileScreenBar button{
+    border:1px solid rgba(0,240,122,.42);
+    background:rgba(0,240,122,.10);
+    color:#eafff2;
+    border-radius:15px;
+    padding:10px 12px;
+    font-weight:900;
+  }
+
+  .mobileScreenBar strong{
+    flex:1;
+    color:#fff;
+    font-size:17px;
+    white-space:nowrap;
+    overflow:hidden;
+    text-overflow:ellipsis;
+  }
+
+  .mobileScreenBar span{
+    color:var(--lp-green);
+    font-size:11px;
+    text-transform:uppercase;
+    border:1px solid rgba(0,240,122,.22);
+    border-radius:999px;
+    padding:6px 8px;
+    background:rgba(0,240,122,.08);
+  }
+
+  body.screen-open .sectionLabel{
+    margin-top:4px;
+  }
+
+  body.screen-open .right h2{
+    font-size:28px;
+    margin-top:12px;
+  }
+
+  body.screen-open .right p{
+    color:#cbded4;
+  }
+
+  body.screen-open .grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:18px;
+  }
+
+  body.screen-open .metric{
+    min-height:86px;
+    border-radius:22px;
+  }
+
+  body.screen-open .content{
+    margin-top:16px;
+  }
+
+  body.screen-open .row{
+    border-radius:22px;
+    margin-bottom:12px;
+    padding:16px;
+    background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(0,240,122,.06));
+  }
+
+  body.screen-open .row b{
+    font-size:16px;
+  }
+
+  body.screen-open .row small{
+    font-size:13px;
+    line-height:1.35;
+  }
+
+  body.screen-open .actions{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+    margin-top:14px;
+  }
+
+  body.screen-open .actions button{
+    min-height:52px;
+    border-radius:18px;
+  }
+
+  body.screen-open .formBox{
+    border-radius:24px;
+    padding:16px;
+    margin-top:16px;
+  }
+
+  body.screen-open textarea#bulkCsvText{
+    width:100%;
+    min-height:120px;
+  }
+
+  body.screen-open .btnGrid{
+    display:grid;
+    grid-template-columns:1fr;
+    gap:10px;
+  }
+
+  body.screen-open .btnGrid button{
+    min-height:48px;
+    border-radius:16px;
+  }
+
+  body.screen-open .mobileBottomNav{
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    position:fixed;
+    left:0;
+    right:0;
+    bottom:0;
+    height:72px;
+    z-index:45;
+    padding:8px 8px 10px;
+    gap:6px;
+    background:rgba(1,10,6,.96);
+    backdrop-filter:blur(18px);
+    border-top:1px solid rgba(0,240,122,.22);
+  }
+
+  .mobileBottomNav button{
+    border:0;
+    background:transparent;
+    color:#c9ddd3;
+    font-size:11px;
+    font-weight:900;
+    border-radius:14px;
+  }
+
+  .mobileBottomNav button:hover,
+  .mobileBottomNav button:active{
+    background:rgba(0,240,122,.12);
+    color:var(--lp-green);
+  }
+
+  body:not(.screen-open) .mobileBottomNav{
+    display:none !important;
+  }
+
+  /* Que el menú inicial se sienta como app */
+  body:not(.screen-open)::before{
+    content:"LigaPro F7";
+    position:fixed;
+    top:0;
+    left:0;
+    right:0;
+    height:0;
+    z-index:-1;
+  }
+
+  body:not(.screen-open) .mobileDashboard{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+
+  body:not(.screen-open) .mobileDashboard div{
+    min-height:74px;
+    border-radius:22px;
+  }
+
+  body:not(.screen-open) .proBadges{
+    grid-template-columns:1fr 1fr;
+  }
+
+  /* Oculta scrollbar horizontal y da sensación nativa */
+  *{
+    -webkit-tap-highlight-color:transparent;
+  }
+}
+
