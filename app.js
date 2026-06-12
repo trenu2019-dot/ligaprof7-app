@@ -65,7 +65,15 @@ function setModule(m){
  const right=document.querySelector(".right");
  if(right) right.scrollTo({top:0,behavior:"smooth"});
  if(!mobileScreenOpen) window.scrollTo({top:0,behavior:"smooth"});
-})}
+}
+
+function loginMobileManual(){
+ const u=$("mobileUsername")?.value || "admin";
+ const p=$("mobilePin")?.value || "2026";
+ if($("username")) $("username").value=u;
+ if($("pin")) $("pin").value=p;
+ loginManual();
+}
 function renderNav(){ $("nav").innerHTML=modules.map(m=>`<button class="${module===m[0]?'active':''}" data-module="${m[0]}"><span>${m[1]}</span><small>Abrir pantalla</small></button>`).join("")}
 function teamName(id){return (data.teams||[]).find(t=>t.id===id)?.name||id}
 function playerName(id){return (data.players||[]).find(p=>p.id===id)?.name||id}
@@ -81,6 +89,7 @@ function render(){
  renderNav();
  $("loginCard").style.display=currentUser?"none":"block";
  $("roleBox").innerHTML=currentUser?`Sesión: ${currentUser.name}<br><small>${currentUser.role}</small>`:"Sin sesión";
+ const mobileAuth=$("mobileAuthBox"); if(mobileAuth) mobileAuth.style.display=currentUser?"none":"block";
  const s=data.summary||{};
  $("kTeams").textContent=s.equiposActivos||0;
  $("kPlayers").textContent=s.jugadoresRegistrados||0;
@@ -479,3 +488,14 @@ function setupPWA(){
 setupPWA();
 
 window.addEventListener("resize", updateMobileShell);
+
+
+function renderFallbackHome(){
+ try{
+   document.body.dataset.module=module;
+   updateMobileShell();
+   renderNav();
+   const mobileAuth=$("mobileAuthBox"); if(mobileAuth) mobileAuth.style.display=currentUser?"none":"block";
+ }catch(e){ console.warn("Fallback home error", e); }
+}
+window.addEventListener("DOMContentLoaded", () => setTimeout(renderFallbackHome, 300));

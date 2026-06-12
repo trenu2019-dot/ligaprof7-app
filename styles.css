@@ -1,4 +1,4 @@
-/* LIGAPRO_F7_V1_2_APP_PANTALLAS_REALES_VERIFICADO */
+/* LIGAPRO_F7_V1_2_1_APP_PANTALLAS_FIX_VERIFICADO */
 :root{--green:#00e676;--gold:#f6c945;--red:#ff4058;--muted:#a9b8af}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 0,rgba(0,230,118,.18),transparent 35%),#000;color:#f6fff9;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
 .layout{min-height:100vh;display:grid;grid-template-columns:330px minmax(420px,1fr) 420px;gap:20px;padding:26px}
@@ -886,3 +886,97 @@ nav button.active{
   }
 }
 
+
+
+/* =========================================================
+   LIGAPRO F7 V1.2.1 - FIX MENÚ Y ACCESO EN HOME
+   ========================================================= */
+.mobileAuthBox{
+  display:none;
+}
+
+@media(max-width:760px){
+  body:not(.screen-open) .left{
+    min-height:100vh;
+  }
+
+  body:not(.screen-open) .mobileAuthBox{
+    display:block;
+    margin:18px 0 18px;
+    padding:16px;
+    border:1px solid rgba(0,240,122,.35);
+    border-radius:24px;
+    background:linear-gradient(135deg,rgba(0,240,122,.12),rgba(255,255,255,.04));
+    box-shadow:0 18px 40px rgba(0,0,0,.18);
+  }
+
+  .mobileAuthBox b{
+    display:block;
+    color:#fff;
+    font-size:17px;
+    margin-bottom:12px;
+  }
+
+  .mobileAuthInputs{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-bottom:10px;
+  }
+
+  .mobileAuthInputs input{
+    width:100%;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.16);
+    background:rgba(0,0,0,.22);
+    color:#fff;
+    padding:12px;
+    font-weight:800;
+  }
+
+  .mobileAuthBox > button{
+    width:100%;
+    min-height:48px;
+    border-radius:17px;
+    border:1px solid rgba(0,240,122,.50);
+    background:linear-gradient(135deg,rgba(0,240,122,.22),rgba(0,90,45,.34));
+    color:#eafff2;
+    font-weight:950;
+  }
+
+  .mobileAuthDemo{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    margin-top:10px;
+  }
+
+  .mobileAuthDemo button{
+    min-height:42px;
+    border-radius:15px;
+    border:1px solid rgba(255,255,255,.14);
+    background:rgba(255,255,255,.055);
+    color:#dfffee;
+    font-weight:900;
+  }
+
+  /* Si por alguna razón el JS tarda, el home no debe quedar vacío */
+  body:not(.screen-open) nav:empty::before{
+    content:"Cargando módulos...";
+    display:block;
+    grid-column:1 / -1;
+    padding:18px;
+    border-radius:18px;
+    color:#dfffee;
+    border:1px solid rgba(0,240,122,.25);
+    background:rgba(0,240,122,.08);
+  }
+
+  body:not(.screen-open) nav{
+    margin-top:14px;
+  }
+
+  body:not(.screen-open) nav button{
+    cursor:pointer;
+  }
+}

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>LigaPro F7 V1.2 App Profesional</title>
+<title>LigaPro F7 V1.2.1 App Profesional</title>
 <link rel="manifest" href="/manifest.webmanifest"/>
 <meta name="theme-color" content="#001b0d"/>
 <meta name="mobile-web-app-capable" content="yes"/>
@@ -11,15 +11,29 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="LigaPro F7"/>
 <link rel="apple-touch-icon" href="/assets/icons/icon-192.png"/>
-<link rel="stylesheet" href="/styles.css?v=12"/>
+<link rel="stylesheet" href="/styles.css?v=121"/>
 </head>
 <body>
 <div id="toast" class="toast"></div>
 <main class="layout">
   <aside class="left">
-    <div class="brand"><div class="mark">F7</div><div><h1>LigaPro <span>F7</span></h1><b>V1.2 APP</b></div></div>
+    <div class="brand"><div class="mark">F7</div><div><h1>LigaPro <span>F7</span></h1><b>V1.2.1 APP</b></div></div>
     <p class="notice">Administración profesional de torneos de Fútbol 7: equipos, jugadores, calendario, pagos, QR y reportes.</p>
     <div id="roleBox" class="roleBox">Sin sesión</div>
+    <div id="mobileAuthBox" class="mobileAuthBox">
+      <b>Acceso rápido</b>
+      <div class="mobileAuthInputs">
+        <input id="mobileUsername" placeholder="Usuario: admin"/>
+        <input id="mobilePin" placeholder="PIN: 2026" type="password"/>
+      </div>
+      <button type="button" onclick="loginMobileManual()">Ingresar</button>
+      <div class="mobileAuthDemo">
+        <button type="button" onclick="loginDemo('admin')">Admin</button>
+        <button type="button" onclick="loginDemo('arbitro')">Árbitro</button>
+        <button type="button" onclick="loginDemo('director')">Director</button>
+        <button type="button" onclick="loginDemo('consulta')">Consulta</button>
+      </div>
+    </div>
     <button id="pwaInstallBtn" class="pwaInstallBtn" style="display:none">Instalar app</button>
     <a class="pwaLink" href="/instalar" target="_blank">Guía instalación</a>
     <nav id="nav"></nav>
@@ -84,6 +98,6 @@
   <button type="button" onclick="setModule('calendario')">Calendario</button>
   <button type="button" onclick="setModule('pagos')">Pagos</button>
 </div>
-<script src="/app.js?v=12"></script>
+<script src="/app.js?v=121"></script>
 </body>
 </html>
