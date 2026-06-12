@@ -18,7 +18,7 @@ from xml.sax.saxutils import escape as xml_escape
 ROOT = os.path.dirname(os.path.abspath(__file__))
 APP_DIR = os.path.join(ROOT, "app")
 DATA_DIR = os.path.join(ROOT, "data")
-DB_PATH = os.path.join(DATA_DIR, "ligaprof7_v32_5_1_estable.sqlite3")
+DB_PATH = os.path.join(DATA_DIR, "ligaprof7_v32_6_1_estable.sqlite3")
 PORT = int(os.environ.get("PORT", "8056"))
 PUBLIC_BASE_URL = os.environ.get("PUBLIC_BASE_URL", "").strip().rstrip("/")
 os.makedirs(DATA_DIR, exist_ok=True)
@@ -34,7 +34,7 @@ DEMO_USERS = [
 ]
 
 SEED_DATA = {
-  "version":"V32.5.1 HOTFIX CELULAR RED WIFI",
+  "version":"V32.6.1 HOTFIX CELULAR RED WIFI",
   "settings":{"brandName":"LigaPro F7","seasonLabel":"Temporada 2026","publicMode":"enabled"},
   "tournaments":[{"id":"TOR-2026-F7","name":"LigaPro F7 Apertura","type":"Liga","status":"Activo"}],
   "seasons":[{"id":"TEMP-2026-A","tournamentId":"TOR-2026-F7","name":"Apertura 2026","year":2026,"status":"Activo"}],
@@ -271,10 +271,10 @@ def checklist_html(data):
     ]
     score=round(sum(1 for _,ok,_ in checks if ok)/len(checks)*100)
     rows="".join([f"<tr><td>{'✅' if ok else '⚠️'}</td><td>{n}</td><td>{d}</td></tr>" for n,ok,d in checks])
-    return f"<html><head><meta charset='utf-8'><style>body{{font-family:Arial;background:#050805;color:white;padding:24px}}h1{{color:#00e676}}td,th{{padding:10px;border-bottom:1px solid #263}}</style></head><body><h1>Checklist V32.5</h1><h2>{score}% listo</h2><table>{rows}</table></body></html>"
+    return f"<html><head><meta charset='utf-8'><style>body{{font-family:Arial;background:#050805;color:white;padding:24px}}h1{{color:#00e676}}td,th{{padding:10px;border-bottom:1px solid #263}}</style></head><body><h1>Checklist V32.6</h1><h2>{score}% listo</h2><table>{rows}</table></body></html>"
 
 
-# ===== V32.5 Carga masiva Excel/CSV =====
+# ===== V32.6 Carga masiva Excel/CSV =====
 BULK_HEADERS = ["tipo","id","nombre","equipo","categoria","numero","posicion","telefono","estatus","fecha","hora","cancha","local","visitante","concepto","monto","rol","pin","notas"]
 
 def normalize_row(row):
@@ -529,7 +529,7 @@ def apply_bulk_rows(rows_in, data, actor):
     return {"ok": True, "imported": imported, "validation": validation, "data": data}
 
 
-# ===== V32.5 Demo Presentable Celular =====
+# ===== V32.6 Demo Presentable Celular =====
 def get_lan_ips():
     ips = []
     try:
@@ -573,7 +573,7 @@ def qr_svg(text):
         return svg
 
 
-# ===== V32.5 Render Home Fix =====
+# ===== V32.6 Render Home Fix =====
 def serve_app_file(handler, rel_path):
     rel_path = rel_path.lstrip("/")
     if rel_path == "" or rel_path == ".":
@@ -606,7 +606,7 @@ def serve_app_file(handler, rel_path):
     return handler.send_error(404, "File not found")
 
 
-# ===== V32.5 FINAL SIN 404 =====
+# ===== V32.6 FINAL SIN 404 =====
 def _v324_content_type(path):
     if path.endswith(".webmanifest"):
         return "application/manifest+json; charset=utf-8"
@@ -653,6 +653,57 @@ def _v324_serve_static(handler, path):
 
     return False
 
+
+# ===== V32.6 Render No Download Final =====
+def send_inline_bytes(handler, content, content_type="text/html; charset=utf-8"):
+    handler.send_response(200)
+    handler.send_header("Content-Type", content_type)
+    handler.send_header("Cache-Control", "no-cache")
+    handler.send_header("Content-Length", str(len(content)))
+    handler.end_headers()
+    if getattr(handler, "command", "GET") != "HEAD":
+        handler.wfile.write(content)
+
+def static_content_type(full):
+    if full.endswith(".html"):
+        return "text/html; charset=utf-8"
+    if full.endswith(".js"):
+        return "text/javascript; charset=utf-8"
+    if full.endswith(".css"):
+        return "text/css; charset=utf-8"
+    if full.endswith(".webmanifest"):
+        return "application/manifest+json; charset=utf-8"
+    if full.endswith(".json"):
+        return "application/json; charset=utf-8"
+    if full.endswith(".png"):
+        return "image/png"
+    if full.endswith(".jpg") or full.endswith(".jpeg"):
+        return "image/jpeg"
+    if full.endswith(".svg"):
+        return "image/svg+xml"
+    return "application/octet-stream"
+
+def serve_inline_static(handler, rel):
+    rel = rel.lstrip("/")
+    if rel in ("", ".", "index.html"):
+        rel = "index.html"
+    rel = os.path.normpath(rel).replace("\\", "/")
+    if rel.startswith("../") or rel == "..":
+        handler.send_error(403, "Forbidden")
+        return True
+
+    candidates = [
+        os.path.join(ROOT, rel),
+        os.path.join(ROOT, "app", rel),
+    ]
+    for full in candidates:
+        if os.path.isfile(full):
+            with open(full, "rb") as f:
+                content = f.read()
+            send_inline_bytes(handler, content, static_content_type(full))
+            return True
+    return False
+
 class Handler(SimpleHTTPRequestHandler):
     def __init__(self,*a,**k):
         super().__init__(*a, directory=APP_DIR, **k)
@@ -667,37 +718,59 @@ class Handler(SimpleHTTPRequestHandler):
 
 
     def do_HEAD(self):
-        # V32.5 HEAD ROOT STATIC
         path=urlparse(self.path).path
-        if path in ("/", "/index.html", "/app.js", "/styles.css", "/manifest.webmanifest", "/service-worker.js", "/offline.html", "/pwa.html") or path.startswith("/assets/"):
-            self.send_response(200)
-            if path.endswith(".js"):
-                self.send_header("Content-Type","text/javascript; charset=utf-8")
-            elif path.endswith(".css"):
-                self.send_header("Content-Type","text/css; charset=utf-8")
-            elif path.endswith(".webmanifest"):
-                self.send_header("Content-Type","application/manifest+json; charset=utf-8")
-            elif path.endswith(".png"):
-                self.send_header("Content-Type","image/png")
-            else:
+        if path in ("/", "/index.html"):
+            full=os.path.join(ROOT, "index.html")
+            if not os.path.isfile(full):
+                full=os.path.join(ROOT, "app", "index.html")
+            if os.path.isfile(full):
+                self.send_response(200)
                 self.send_header("Content-Type","text/html; charset=utf-8")
-            self.end_headers()
-            return
+                self.send_header("Cache-Control","no-cache")
+                self.send_header("Content-Length", str(os.path.getsize(full)))
+                self.end_headers()
+                return
+
+        if path in ("/app.js", "/styles.css", "/manifest.webmanifest", "/service-worker.js", "/offline.html", "/pwa.html") or path.startswith("/assets/"):
+            rel=path.lstrip("/")
+            full=os.path.join(ROOT, rel)
+            if not os.path.isfile(full):
+                full=os.path.join(ROOT, "app", rel)
+            if os.path.isfile(full):
+                self.send_response(200)
+                self.send_header("Content-Type", static_content_type(full))
+                self.send_header("Cache-Control","no-cache")
+                self.send_header("Content-Length", str(os.path.getsize(full)))
+                self.end_headers()
+                return
+
         if path in ("/api/health","/api/version"):
             self.send_response(200)
-            self.send_header("Content-Type","application/json")
+            self.send_header("Content-Type","application/json; charset=utf-8")
             self.end_headers()
             return
+
         self.send_response(200)
         self.end_headers()
 
     def do_GET(self):
         path=urlparse(self.path).path
+
+        # V32.6: abrir en navegador, NO descargar index.html.
+        if path in ("/", "/index.html"):
+            if serve_inline_static(self, "index.html"):
+                return
+            return self.send_error(404, "No se encontró index.html")
+
+        if path in ("/app.js", "/styles.css", "/manifest.webmanifest", "/service-worker.js", "/offline.html", "/pwa.html") or path.startswith("/assets/"):
+            if serve_inline_static(self, path):
+                return
+            return self.send_error(404, "Archivo estático no encontrado")
         if path=="/api/version":
-            return self.send_json({"ok":True,"version":"V32.5_RENDER_ROOT_STATIC_FINAL"})
+            return self.send_json({"ok":True,"version":"V32.6_RENDER_NO_DOWNLOAD_FINAL"})
 
 
-        # V32.5: archivos también están en la raíz del repo para Render.
+        # V32.6: archivos también están en la raíz del repo para Render.
         if path in ("/", "/index.html"):
             full=os.path.join(ROOT, "index.html")
             if os.path.isfile(full):
@@ -716,7 +789,7 @@ class Handler(SimpleHTTPRequestHandler):
                 with open(full, "rb") as f: content=f.read()
                 return send_bytes(self, content, ctype, os.path.basename(full))
 
-        # V32.5 Render final: estas rutas nunca deben devolver 404.
+        # V32.6 Render final: estas rutas nunca deben devolver 404.
         if path in ("/", "/index.html", "/app.js", "/styles.css", "/manifest.webmanifest", "/service-worker.js", "/offline.html", "/pwa.html") or path.startswith("/assets/"):
             if _v324_serve_static(self, path):
                 return
@@ -724,7 +797,7 @@ class Handler(SimpleHTTPRequestHandler):
             if path in ("/", "/index.html"):
                 return self.send_error(500, "No se encontró app/index.html en el paquete")
 
-        # V32.5: Render abre "/" y debe mostrar la app, no 404.
+        # V32.6: Render abre "/" y debe mostrar la app, no 404.
         if path=="/" or path=="/index.html":
             return serve_app_file(self, "index.html")
 
@@ -737,14 +810,14 @@ class Handler(SimpleHTTPRequestHandler):
         if path=="/api/mobile-info":
             ips=get_lan_ips()
             urls=[f"http://{ip}:{PORT}" for ip in ips]
-            return self.send_json({"ok":True,"port":PORT,"local":"http://127.0.0.1:%s"%PORT,"urls":urls,"version":"V32.5.1 HOTFIX CELULAR RED WIFI"})
+            return self.send_json({"ok":True,"port":PORT,"local":"http://127.0.0.1:%s"%PORT,"urls":urls,"version":"V32.6.1 HOTFIX CELULAR RED WIFI"})
 
         if path=="/celular":
             ips=get_lan_ips()
             primary = f"http://{ips[0]}:{PORT}" if ips else f"http://127.0.0.1:{PORT}"
             rows = "".join([f"<li><b>URL:</b> http://{ip}:{PORT}</li>" for ip in ips]) or f"<li>{primary}</li>"
             html=f"""<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>LigaPro F7 V32.5 Celular</title>
+<title>LigaPro F7 V32.6 Celular</title>
 <style>
 body{{margin:0;background:#001b0d;color:#fff;font-family:Arial,sans-serif;padding:22px}}
 .card{{max-width:720px;margin:auto;background:#062916;border:1px solid #00b050;border-radius:24px;padding:22px;box-shadow:0 20px 70px rgba(0,0,0,.45)}}
@@ -754,7 +827,7 @@ code{{background:#000;padding:8px;border-radius:8px;color:#00ff88;display:inline
 .btn{{display:block;text-align:center;padding:14px 18px;border-radius:14px;background:#00b050;color:#001b0d;text-decoration:none;font-weight:900;margin:10px 0}}
 .warn{{background:#fff2cc;color:#111;padding:12px;border-radius:14px;font-weight:700}}
 </style></head><body><div class='card'>
-<h1>LigaPro F7 V32.5</h1><p>Demo presentable para celular.</p>
+<h1>LigaPro F7 V32.6</h1><p>Demo presentable para celular.</p>
 <a class='btn' href='{primary}'>Abrir app en este dispositivo</a>
 <div class='qr'>{qr_svg(primary)}</div>
 <h2>URLs disponibles</h2><ul>{rows}</ul>
@@ -762,7 +835,7 @@ code{{background:#000;padding:8px;border-radius:8px;color:#00ff88;display:inline
 <h2>Usuarios demo</h2>
 <p><code>admin / 2026</code><br><code>arbitro / 7777</code><br><code>tigres / 1111</code><br><code>consulta / 0000</code></p>
 </div></body></html>"""
-            return send_bytes(self, html.encode("utf-8"), "text/html; charset=utf-8", "ligaprof7_v32_5_1_celular.html")
+            return send_bytes(self, html.encode("utf-8"), "text/html; charset=utf-8", "ligaprof7_v32_6_1_celular.html")
 
 
         if path=="/instalar":
@@ -797,7 +870,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-work
 </script></body></html>"""
             return send_bytes(self, html.encode("utf-8"), "text/html; charset=utf-8", "instalar_ligaprof7.html")
 
-        if path=="/api/health": return self.send_json({"ok":True,"version":"V32.5.1 HOTFIX CELULAR RED WIFI","port":PORT})
+        if path=="/api/health": return self.send_json({"ok":True,"version":"V32.6.1 HOTFIX CELULAR RED WIFI","port":PORT})
         if path=="/api/data": return self.send_json({"ok":True,"data":get_data()})
         if path=="/api/users": return self.send_json({"ok":True,"items":get_users()})
         if path=="/api/dashboard": return self.send_json({"ok":True,"dashboard":compute_dashboard(get_data())})
@@ -806,7 +879,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-work
         if path=="/checklist":
             p=checklist_html(get_data()).encode(); self.send_response(200); self.send_header("Content-Type","text/html; charset=utf-8"); self.end_headers(); self.wfile.write(p); return
         if path=="/api/final/preflight":
-            return self.send_json({"ok":True,"preflight":{"score":100,"ready":True,"message":"V32.5 estable lista para prueba real"}})
+            return self.send_json({"ok":True,"preflight":{"score":100,"ready":True,"message":"V32.6 estable lista para prueba real"}})
         if path=="/api/public/summary":
             data=get_data(); return self.send_json({"ok":True,"public":{"settings":data.get("settings"),"summary":compute_summary(data),"standings":compute_dashboard(data)["standings"],"topScorers":compute_dashboard(data)["topScorers"]}})
         if path.startswith("/api/verify/player/"):
@@ -834,7 +907,7 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-work
         if path=="/api/templates/datos-reales.csv":
             return send_bytes(self, csv_bytes(["tipo","id","nombre","equipo","categoria","numero","posicion","telefono","estatus","notas"], [["equipo","EQ-001","Nombre del equipo","","Libre Varonil","","","","Activo",""],["jugador","JUG-001","Nombre jugador","EQ-001","Libre Varonil","10","Delantero","7220000000","Activo",""]]), "text/csv; charset=utf-8", "plantilla_datos_reales_ligaprof7.csv")
         if path=="/api/backup/full":
-            return send_bytes(self, json.dumps({"version":"V32.5","data":get_data()}, ensure_ascii=False, indent=2).encode(), "application/json; charset=utf-8", "LigaProF7_V30_2_backup_full.json")
+            return send_bytes(self, json.dumps({"version":"V32.6","data":get_data()}, ensure_ascii=False, indent=2).encode(), "application/json; charset=utf-8", "LigaProF7_V30_2_backup_full.json")
         if path in ["/api/reports/enterprise.xlsx","/api/reports/workbook.xlsx","/api/reports/standings.xlsx","/api/reports/payments.xlsx","/api/reports/sanctions.xlsx"]:
             data=get_data()
             sheets=[
@@ -987,14 +1060,14 @@ if('serviceWorker' in navigator){navigator.serviceWorker.register('/service-work
         if path=="/api/mobile-info":
             ips=get_lan_ips()
             urls=[f"http://{ip}:{PORT}" for ip in ips]
-            return self.send_json({"ok":True,"port":PORT,"local":"http://127.0.0.1:%s"%PORT,"urls":urls,"version":"V32.5.1 HOTFIX CELULAR RED WIFI"})
+            return self.send_json({"ok":True,"port":PORT,"local":"http://127.0.0.1:%s"%PORT,"urls":urls,"version":"V32.6.1 HOTFIX CELULAR RED WIFI"})
 
         if path=="/celular":
             ips=get_lan_ips()
             primary = f"http://{ips[0]}:{PORT}" if ips else f"http://127.0.0.1:{PORT}"
             rows = "".join([f"<li><b>URL:</b> http://{ip}:{PORT}</li>" for ip in ips]) or f"<li>{primary}</li>"
             html=f"""<!doctype html><html lang='es'><head><meta charset='utf-8'><meta name='viewport' content='width=device-width,initial-scale=1'>
-<title>LigaPro F7 V32.5 Celular</title>
+<title>LigaPro F7 V32.6 Celular</title>
 <style>
 body{{margin:0;background:#001b0d;color:#fff;font-family:Arial,sans-serif;padding:22px}}
 .card{{max-width:720px;margin:auto;background:#062916;border:1px solid #00b050;border-radius:24px;padding:22px;box-shadow:0 20px 70px rgba(0,0,0,.45)}}
@@ -1004,7 +1077,7 @@ code{{background:#000;padding:8px;border-radius:8px;color:#00ff88;display:inline
 .btn{{display:block;text-align:center;padding:14px 18px;border-radius:14px;background:#00b050;color:#001b0d;text-decoration:none;font-weight:900;margin:10px 0}}
 .warn{{background:#fff2cc;color:#111;padding:12px;border-radius:14px;font-weight:700}}
 </style></head><body><div class='card'>
-<h1>LigaPro F7 V32.5</h1><p>Demo presentable para celular.</p>
+<h1>LigaPro F7 V32.6</h1><p>Demo presentable para celular.</p>
 <a class='btn' href='{primary}'>Abrir app en este dispositivo</a>
 <div class='qr'>{qr_svg(primary)}</div>
 <h2>URLs disponibles</h2><ul>{rows}</ul>
@@ -1012,7 +1085,7 @@ code{{background:#000;padding:8px;border-radius:8px;color:#00ff88;display:inline
 <h2>Usuarios demo</h2>
 <p><code>admin / 2026</code><br><code>arbitro / 7777</code><br><code>tigres / 1111</code><br><code>consulta / 0000</code></p>
 </div></body></html>"""
-            return send_bytes(self, html.encode("utf-8"), "text/html; charset=utf-8", "ligaprof7_v32_5_1_celular.html")
+            return send_bytes(self, html.encode("utf-8"), "text/html; charset=utf-8", "ligaprof7_v32_6_1_celular.html")
 
         
         if path=="/api/demo/presentable":
@@ -1073,7 +1146,7 @@ code{{background:#000;padding:8px;border-radius:8px;color:#00ff88;display:inline
 if __name__=="__main__":
     init_db()
     print("="*60)
-    print("LigaPro F7 V32.5.1 HOTFIX CELULAR RED WIFI - Login real")
+    print("LigaPro F7 V32.6.1 HOTFIX CELULAR RED WIFI - Login real")
     print("="*60)
     print(f"Servidor: http://127.0.0.1:{PORT}")
     print("Usuarios: admin/2026 · arbitro/7777 · tigres/1111 · consulta/0000")
