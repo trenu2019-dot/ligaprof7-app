@@ -767,7 +767,7 @@ class Handler(SimpleHTTPRequestHandler):
                 return
             return self.send_error(404, "Archivo estático no encontrado")
         if path=="/api/version":
-            return self.send_json({"ok":True,"version":"V1_2_1_APP_PANTALLAS_FIX"})
+            return self.send_json({"ok":True,"version":"V1_3_UI_PREMIUM_DASHBOARD"})
 
 
         # V32.6: archivos también están en la raíz del repo para Render.

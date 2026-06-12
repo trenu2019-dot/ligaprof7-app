@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>LigaPro F7 V1.2.1 App Profesional</title>
+<title>LigaPro F7 V1.3 Premium</title>
 <link rel="manifest" href="/manifest.webmanifest"/>
 <meta name="theme-color" content="#001b0d"/>
 <meta name="mobile-web-app-capable" content="yes"/>
@@ -11,14 +11,14 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
 <meta name="apple-mobile-web-app-title" content="LigaPro F7"/>
 <link rel="apple-touch-icon" href="/assets/icons/icon-192.png"/>
-<link rel="stylesheet" href="/styles.css?v=121"/>
+<link rel="stylesheet" href="/styles.css?v=1301"/>
 </head>
-<body>
+<body class="premium-dashboard">
 <div id="toast" class="toast"></div>
 <main class="layout">
   <aside class="left">
-    <div class="brand"><div class="mark">F7</div><div><h1>LigaPro <span>F7</span></h1><b>V1.2.1 APP</b></div></div>
-    <p class="notice">Administración profesional de torneos de Fútbol 7: equipos, jugadores, calendario, pagos, QR y reportes.</p>
+    <div class="brand"><div class="mark premiumLogo" aria-label="LigaPro F7"><img src="/assets/ligapro-f7-premium.svg" alt="F7"/></div><div><h1>LigaPro <span>F7</span></h1><div class="subBrand">Administración Deportiva</div><b>v1.3</b></div></div>
+    <p class="notice">Administración profesional de torneos de Fútbol 7: equipos, jugadores, calendario, pagos, QR y reportes.</p><div class="versionPill"><span>🛡</span> v1.3</div>
     <div id="roleBox" class="roleBox">Sin sesión</div>
     <div id="mobileAuthBox" class="mobileAuthBox">
       <b>Acceso rápido</b>
@@ -91,6 +91,13 @@
     <div id="content" class="content"></div>
   </aside>
 </main>
+<div id="premiumBottomNav" class="premiumBottomNav">
+  <button class="active" type="button" onclick="goHome()">⌂<span>Inicio</span></button>
+  <button type="button" onclick="setModule('calendario')">▣<span>Calendario</span></button>
+  <button type="button" onclick="setModule('resultados')">♛<span>Resultados</span></button>
+  <button type="button" onclick="setModule('tabla')">▥<span>Tabla</span></button>
+  <button type="button" onclick="setModule('reportes')">•••<span>Más</span></button>
+</div>
 <div id="mobileBottomNav" class="mobileBottomNav">
   <button type="button" onclick="goHome()">Inicio</button>
   <button type="button" onclick="setModule('equipos')">Equipos</button>
@@ -98,6 +105,6 @@
   <button type="button" onclick="setModule('calendario')">Calendario</button>
   <button type="button" onclick="setModule('pagos')">Pagos</button>
 </div>
-<script src="/app.js?v=121"></script>
+<script src="/app.js?v=1301"></script>
 </body>
 </html>
