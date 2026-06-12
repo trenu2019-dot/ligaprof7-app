@@ -128,8 +128,8 @@ function renderBulkPanel(){
  }
  panel.innerHTML=`
  <div class="formBox">
-  <h3>V32.1 Demo Presentable Celular</h3>
-  <p>Demo lista para mostrar en celular, con carga Excel, QR, reportes y backup.</p>
+  <h3>LigaPro F7 V1.0 Presentable</h3>
+  <p>Versión presentable: app web publicada, APK Android funcional, carga Excel, QR, reportes y backup.</p>
   <textarea id="bulkCsvText" placeholder="Pega aquí directo desde Excel. Copia desde la fila 5 incluyendo encabezados. Acepta tabuladores o CSV."></textarea>
   <input id="bulkCsvFile" type="file" accept=".csv,text/csv" />
   <div class="btnGrid">
@@ -386,7 +386,7 @@ async function showMobileInfo(){
 
 
 
-/* ===== V32.1 PWA Instalación ===== */
+/* ===== V1.0 PRESENTABLE Instalación ===== */
 let deferredPwaPrompt = null;
 
 function isStandalonePWA(){
