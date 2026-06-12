@@ -152,3 +152,403 @@ nav{display:grid;gap:8px;margin:14px 0}nav button,.demo button,.actions button,.
 .notice{font-size:15px;line-height:1.45;}
 .metric b{font-size:28px;}
 #mock{border-radius:30px;filter:drop-shadow(0 22px 45px rgba(0,0,0,.55));}
+
+
+/* =========================================================
+   LIGAPRO F7 V1.1 PRO - REDISEÑO VISUAL REAL
+   ========================================================= */
+:root{
+  --lp-bg:#020706;
+  --lp-panel:rgba(3,24,14,.92);
+  --lp-panel2:rgba(0,55,28,.72);
+  --lp-green:#00f07a;
+  --lp-green2:#00b85c;
+  --lp-gold:#ffd34f;
+  --lp-text:#f7fff9;
+  --lp-muted:#a7b8af;
+  --lp-line:rgba(0,240,122,.30);
+  --lp-shadow:0 24px 70px rgba(0,0,0,.45), 0 0 38px rgba(0,240,122,.10);
+}
+body{
+  background:
+    radial-gradient(circle at 12% 12%, rgba(0,240,122,.20), transparent 28%),
+    radial-gradient(circle at 85% 8%, rgba(255,211,79,.10), transparent 22%),
+    linear-gradient(135deg,#020706 0%,#001509 45%,#020706 100%);
+}
+.layout{
+  gap:24px;
+  padding:28px;
+}
+.left,.right{
+  background:
+    linear-gradient(160deg, rgba(6,34,20,.96), rgba(0,9,5,.94)),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 22px);
+  border:1px solid var(--lp-line);
+  box-shadow:var(--lp-shadow);
+}
+.left{
+  position:relative;
+  overflow:auto;
+}
+.left::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  height:180px;
+  background:linear-gradient(135deg, rgba(0,240,122,.28), transparent 58%);
+  pointer-events:none;
+}
+.brand{
+  position:relative;
+  z-index:1;
+}
+.mark{
+  width:64px;
+  height:64px;
+  border-radius:20px;
+  box-shadow:0 0 0 7px rgba(0,240,122,.08), 0 16px 34px rgba(0,0,0,.35);
+}
+.brand h1{
+  font-size:30px;
+  letter-spacing:-.04em;
+}
+.brand b{
+  display:inline-block;
+  margin-top:4px;
+  background:rgba(255,211,79,.12);
+  border:1px solid rgba(255,211,79,.28);
+  padding:3px 8px;
+  border-radius:999px;
+}
+.notice{
+  position:relative;
+  z-index:1;
+  font-size:15px;
+  margin-top:20px;
+}
+.proBadges{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:8px;
+  margin:18px 0;
+  position:relative;
+  z-index:1;
+}
+.proBadges span{
+  border:1px solid rgba(255,255,255,.12);
+  background:rgba(255,255,255,.055);
+  color:#dfffee;
+  border-radius:14px;
+  padding:9px 10px;
+  font-size:12px;
+  font-weight:800;
+}
+.mobileDashboard{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin:14px 0 18px;
+}
+.mobileDashboard div{
+  background:linear-gradient(135deg,rgba(0,240,122,.16),rgba(255,255,255,.04));
+  border:1px solid rgba(0,240,122,.25);
+  border-radius:18px;
+  padding:12px;
+}
+.mobileDashboard small{
+  display:block;
+  color:var(--lp-muted);
+  text-transform:uppercase;
+  font-size:10px;
+  letter-spacing:.08em;
+}
+.mobileDashboard b{
+  color:var(--lp-green);
+  font-size:16px;
+}
+.roleBox{
+  background:linear-gradient(135deg, rgba(0,240,122,.16), rgba(0,0,0,.18));
+  border-color:rgba(0,240,122,.55);
+  box-shadow:inset 0 0 24px rgba(0,240,122,.05);
+}
+nav{
+  gap:10px;
+}
+nav button{
+  min-height:54px;
+  border-radius:18px;
+  text-align:left;
+  padding:0 16px 0 54px;
+  position:relative;
+  background:linear-gradient(135deg, rgba(0,240,122,.13), rgba(0,45,23,.50));
+  border-color:rgba(0,240,122,.32);
+  color:#dfffee;
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+}
+nav button::before{
+  content:"⚽";
+  position:absolute;
+  left:16px;
+  top:50%;
+  transform:translateY(-50%);
+  width:28px;
+  height:28px;
+  display:grid;
+  place-items:center;
+  border-radius:10px;
+  background:rgba(0,240,122,.16);
+}
+nav button:nth-child(2)::before{content:"📲"}
+nav button:nth-child(3)::before{content:"📱"}
+nav button:nth-child(4)::before{content:"🎮"}
+nav button:nth-child(5)::before{content:"📥"}
+nav button:nth-child(6)::before{content:"✍️"}
+nav button:nth-child(7)::before{content:"🛡️"}
+nav button:nth-child(8)::before{content:"👤"}
+nav button:nth-child(9)::before{content:"🗓️"}
+nav button:nth-child(10)::before{content:"🏁"}
+nav button:nth-child(11)::before{content:"📊"}
+nav button:nth-child(12)::before{content:"💳"}
+nav button:nth-child(13)::before{content:"📑"}
+nav button:nth-child(14)::before{content:"📺"}
+nav button.active{
+  background:linear-gradient(135deg, rgba(0,240,122,.34), rgba(0,85,42,.66));
+  color:#fff;
+  border-color:rgba(0,240,122,.75);
+}
+.center .phone{
+  width:min(520px,92vw);
+  background:linear-gradient(150deg,rgba(0,240,122,.12),rgba(0,0,0,.7));
+  border:1px solid rgba(0,240,122,.18);
+  padding:10px;
+}
+.center .phone::before{
+  content:"LigaPro F7 · App demo";
+  position:absolute;
+  top:-44px;
+  left:50%;
+  transform:translateX(-50%);
+  color:var(--lp-muted);
+  font-size:13px;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+}
+.loginCard{
+  backdrop-filter:blur(12px);
+}
+.sectionLabel{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  background:rgba(0,240,122,.12);
+  color:var(--lp-green);
+  border:1px solid rgba(0,240,122,.25);
+  border-radius:999px;
+  padding:6px 10px;
+  font-size:11px;
+  font-weight:900;
+  text-transform:uppercase;
+  letter-spacing:.08em;
+}
+.right h2{
+  font-size:30px;
+  line-height:1.05;
+  margin:12px 0 8px;
+}
+.grid{
+  grid-template-columns:repeat(2,minmax(0,1fr));
+}
+.metric{
+  background:linear-gradient(135deg, rgba(0,240,122,.14), rgba(255,255,255,.04));
+  border-color:rgba(0,240,122,.22);
+  min-height:86px;
+}
+.metric b{
+  font-size:27px;
+}
+.row{
+  background:linear-gradient(135deg, rgba(255,255,255,.07), rgba(0,240,122,.05));
+  border-color:rgba(255,255,255,.10);
+  border-radius:18px;
+  padding:14px;
+}
+.row b{
+  font-size:15px;
+}
+.row small{
+  margin-top:5px;
+  font-size:13px;
+}
+.pill{
+  background:rgba(0,240,122,.10);
+  color:var(--lp-green);
+}
+.formBox{
+  background:linear-gradient(135deg,rgba(0,240,122,.09),rgba(255,255,255,.035));
+  border-color:rgba(0,240,122,.28);
+}
+.actions button,.btnGrid button,.loginCard button,.demo button{
+  border-radius:16px;
+  background:linear-gradient(135deg,rgba(0,240,122,.16),rgba(0,66,32,.35));
+}
+.pwaLink{
+  display:block;
+  text-align:center;
+  text-decoration:none;
+  border:1px solid rgba(255,211,79,.30);
+  color:var(--lp-gold);
+  border-radius:16px;
+  padding:13px;
+  font-weight:900;
+  background:rgba(255,211,79,.06);
+}
+
+/* Móvil: ahora sí cambia la experiencia completa */
+@media(max-width:760px){
+  html,body{min-height:100%; overflow-x:hidden;}
+  body{
+    background:
+      radial-gradient(circle at 50% -12%, rgba(0,240,122,.22), transparent 42%),
+      linear-gradient(180deg,#03140b 0%,#010504 48%,#000 100%);
+  }
+  .layout{
+    display:block;
+    padding:0;
+    min-height:100vh;
+  }
+  .left{
+    border:none;
+    border-radius:0 0 32px 32px;
+    max-height:none;
+    min-height:auto;
+    padding:26px 20px 18px;
+    box-shadow:0 30px 70px rgba(0,0,0,.42);
+  }
+  .left::before{
+    height:240px;
+    background:
+      radial-gradient(circle at 20% 0, rgba(0,240,122,.36), transparent 42%),
+      radial-gradient(circle at 85% 12%, rgba(255,211,79,.16), transparent 30%);
+  }
+  .brand{
+    gap:14px;
+    align-items:center;
+  }
+  .mark{
+    width:62px;
+    height:62px;
+    border-radius:21px;
+    font-size:27px;
+  }
+  .brand h1{
+    font-size:28px;
+  }
+  .notice{
+    font-size:16px;
+    line-height:1.42;
+    margin:18px 0 14px;
+    color:#d7e7df;
+  }
+  .proBadges{
+    grid-template-columns:1fr 1fr;
+  }
+  .roleBox{
+    margin-top:18px;
+    padding:16px;
+    border-radius:20px;
+    font-size:15px;
+  }
+  nav{
+    grid-template-columns:1fr 1fr;
+    display:grid;
+    gap:12px;
+    margin-top:18px;
+  }
+  nav button{
+    min-height:92px;
+    border-radius:24px;
+    padding:42px 12px 12px 14px;
+    text-align:left;
+    font-size:13px;
+    color:#eafff2;
+  }
+  nav button::before{
+    left:14px;
+    top:14px;
+    transform:none;
+    width:32px;
+    height:32px;
+    font-size:18px;
+  }
+  .demo{
+    display:none;
+  }
+  .center{
+    display:none;
+  }
+  .right{
+    margin:18px 14px 92px;
+    border-radius:30px;
+    max-height:none;
+    overflow:visible;
+    padding:20px;
+  }
+  .right h2{
+    font-size:27px;
+  }
+  .grid{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .metric{
+    min-height:78px;
+    padding:13px;
+    border-radius:20px;
+  }
+  .metric b{
+    font-size:24px;
+  }
+  .actions{
+    grid-template-columns:1fr 1fr;
+    gap:10px;
+  }
+  .actions button{
+    min-height:50px;
+    border-radius:18px;
+    font-size:13px;
+  }
+  .row{
+    display:block;
+    border-radius:20px;
+    padding:16px;
+  }
+  .row .pill{
+    display:inline-block;
+    margin-top:10px;
+  }
+  textarea#bulkCsvText{
+    min-height:110px;
+    width:100%;
+  }
+  .btnGrid{
+    grid-template-columns:1fr;
+  }
+  .toast{
+    left:14px;
+    right:14px;
+    bottom:18px;
+  }
+}
+
+/* Ajuste para que V1.1 se perciba como app y no como web vieja */
+@media(max-width:760px){
+  body::after{
+    content:"";
+    position:fixed;
+    left:0;right:0;bottom:0;
+    height:56px;
+    background:linear-gradient(180deg,transparent,rgba(0,0,0,.78));
+    pointer-events:none;
+    z-index:2;
+  }
+}

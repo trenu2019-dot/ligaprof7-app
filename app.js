@@ -6,22 +6,22 @@ function normalizeExcelPaste(text){
 let token=localStorage.getItem("ligaprof7_v32_token")||"";
 let currentUser=null;
 let data=null;
-let module="masiva";
+let module="inicio";
 
 const modules=[
- ["inicio","Inicio","assets/inicio.png"],
- ["pwa","Instalar app","assets/inicio.png"],
- ["celular","Abrir en celular","assets/inicio.png"],
+ ["inicio","Panel Pro","assets/inicio.png"],
+ ["pwa","Instalar","assets/inicio.png"],
+ ["celular","Celular","assets/inicio.png"],
  ["demo","Modo demo","assets/estadisticas.png"],
- ["masiva","Carga masiva","assets/estadisticas.png"],
- ["carga","Carga real","assets/equipos.png"],
+ ["masiva","Carga Excel","assets/estadisticas.png"],
+ ["carga","Captura","assets/equipos.png"],
  ["equipos","Equipos","assets/equipos.png"],
  ["jugadores","Jugadores","assets/registro_qr.png"],
  ["calendario","Calendario","assets/calendario.png"],
  ["resultados","Resultados","assets/resultados.png"],
  ["tabla","Tabla","assets/tabla.png"],
  ["pagos","Pagos","assets/pagos.png"],
- ["reportes","Reportes","assets/estadisticas.png"],
+ ["reportes","Reportes Pro","assets/estadisticas.png"],
  ["tv","LigaPro TV","assets/tv.png"]
 ];
 
@@ -32,7 +32,7 @@ function auth(extra={}){return token?{...extra,Authorization:"Bearer "+token}:ex
 async function api(url,opt={}){const r=await fetch(url,opt);const txt=await r.text();let j={};try{j=JSON.parse(txt)}catch{};if(!r.ok)throw new Error(j.error||txt||"Error");return j}
 async function load(){const j=await api("/api/data");data=j.data;render()}
 async function save(){if(!currentUser){toast("Primero inicia sesión");return false}try{await api("/api/data",{method:"POST",headers:auth({"Content-Type":"application/json"}),body:JSON.stringify({data})});await load();toast("Datos guardados");return true}catch(e){toast("No se guardó: "+e.message);return false}}
-function setModule(m){module=m;const found=modules.find(x=>x[0]===m);if(found && $("mock")) $("mock").src=found[2];render()}
+function setModule(m){module=m;document.body.dataset.module=m;const found=modules.find(x=>x[0]===m);if(found && $("mock")) $("mock").src=found[2];render();window.scrollTo({top:0,behavior:"smooth"})}
 function renderNav(){ $("nav").innerHTML=modules.map(m=>`<button class="${module===m[0]?'active':''}" data-module="${m[0]}">${m[1]}</button>`).join("")}
 function teamName(id){return (data.teams||[]).find(t=>t.id===id)?.name||id}
 function playerName(id){return (data.players||[]).find(p=>p.id===id)?.name||id}
@@ -43,6 +43,7 @@ function slugId(prefix, text){return prefix+"-"+String(text||"REAL").normalize("
 
 function render(){
  if(!data)return;
+ document.body.dataset.module=module;
  renderNav();
  $("loginCard").style.display=currentUser?"none":"block";
  $("roleBox").innerHTML=currentUser?`Sesión: ${currentUser.name}<br><small>${currentUser.role}</small>`:"Sin sesión";
@@ -52,13 +53,19 @@ function render(){
  $("kIncome").textContent=money(s.ingresosTotales||0);
  $("kPending").textContent=money(s.pagosPendientes||0);
 
- let rows=[],title="Carga masiva",desc="Botones corregidos con eventos directos.";
+ let rows=[],title="Carga masiva",desc="Administración profesional del torneo en tiempo real.";
  if(module==="inicio"){
-   title="Inicio"; desc="Panel operativo V32.1.";
-   rows=[["V32.1 Hotfix","Carga masiva corregida"],["Login estable","Sin zonas clicables"],["Reportes","PDF/XLSX/Backup activos"]];
+   title="Dashboard LigaPro F7";
+   desc="Vista ejecutiva V1.1 Pro: operación, administración y seguimiento del torneo.";
+   rows=[
+    ["Centro de mando","Control de equipos, jugadores, calendario, pagos y reportes desde una sola app."],
+    ["Operación móvil","Diseño optimizado para celular con navegación tipo tarjetas."],
+    ["Datos del torneo","Consulta tabla, resultados, pagos pendientes y reportes ejecutivos."],
+    ["Listo para presentar","Versión comercial para equipos, árbitros, patrocinadores y directores."]
+   ];
  }
  if(module==="masiva"){
-   title="Carga masiva Excel/CSV";
+   title="Carga masiva · Excel/CSV";
    desc="Pega CSV, carga archivo CSV, valida e importa.";
    rows=[
     ["1. Descargar plantilla","Usa el botón Descargar plantilla."],
@@ -102,7 +109,7 @@ function render(){
  }
 
  if(module==="carga"){
-   title="Carga real individual";
+   title="Captura operativa individual";
    rows=[["Configurar torneo","Captura torneo, temporada y categoría"],["Agregar equipo","Alta individual"],["Agregar jugador","Alta individual"],["Agregar partido","Calendario individual"]];
  }
  if(module==="equipos"){title="Equipos";rows=(data.teams||[]).map(t=>[t.name,`${t.director||""} · ${t.status} · ${t.pts||0} pts`])}
@@ -145,7 +152,7 @@ function renderBulkPanel(){
   <div id="bulkResult" class="bulkResult">Sin validación todavía.</div>
  </div>
  <div class="formBox">
-  <h3>Carga real individual</h3>
+  <h3>Captura operativa individual</h3>
   <div class="btnGrid">
    <button id="btnConfigureTournament" type="button">Configurar torneo</button>
    <button id="btnAddTeam" type="button">Agregar equipo</button>
