@@ -1,4 +1,3 @@
-/* LIGAPRO_F7_V1_2_1_APP_PANTALLAS_FIX_VERIFICADO */
 :root{--green:#00e676;--gold:#f6c945;--red:#ff4058;--muted:#a9b8af}
 *{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 0,rgba(0,230,118,.18),transparent 35%),#000;color:#f6fff9;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
 .layout{min-height:100vh;display:grid;grid-template-columns:330px minmax(420px,1fr) 420px;gap:20px;padding:26px}
@@ -983,69 +982,75 @@ nav button.active{
 
 
 /* =========================================================
-   LIGAPRO F7 V1.3.1 - UI FIX FUNCIONAL
-   Base funcional V1.2.1 + diseño seguro
+   LIGAPRO F7 V1.4 LANZAMIENTO ESTABLE
+   Diseño final seguro sobre base funcional V1.2.1
    ========================================================= */
+
 :root{
-  --ui-bg:#020705;
-  --ui-panel:#071812;
-  --ui-panel2:#0b251a;
-  --ui-green:#11f083;
-  --ui-green2:#00a95c;
-  --ui-gold:#f2c45b;
-  --ui-text:#f7fff9;
-  --ui-muted:#b8c6c0;
-  --ui-line:rgba(17,240,131,.34);
-  --ui-shadow:0 20px 52px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+  --lf-bg:#020705;
+  --lf-panel:#061a12;
+  --lf-panel2:#0b2a1d;
+  --lf-green:#11f083;
+  --lf-green2:#00b965;
+  --lf-gold:#f2c45b;
+  --lf-text:#f8fff9;
+  --lf-muted:#b9c8c1;
+  --lf-line:rgba(17,240,131,.32);
+  --lf-shadow:0 18px 46px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
 }
-.safeLogo{
+
+.finalLogo{
   background:transparent!important;
-  padding:0!important;
-  border:none!important;
-  overflow:visible!important;
+  border:0!important;
   box-shadow:none!important;
+  padding:0!important;
+  overflow:visible!important;
 }
-.safeLogo img{
+.finalLogo img{
   width:100%!important;
   height:100%!important;
   display:block!important;
-  filter:drop-shadow(0 14px 22px rgba(0,0,0,.48)) drop-shadow(0 0 16px rgba(17,240,131,.18));
+  filter:drop-shadow(0 14px 22px rgba(0,0,0,.50)) drop-shadow(0 0 14px rgba(17,240,131,.22));
 }
+
 body{
   background:
-    radial-gradient(circle at 85% 4%, rgba(17,240,131,.20), transparent 28%),
-    radial-gradient(circle at 18% 0%, rgba(242,196,91,.10), transparent 18%),
+    radial-gradient(circle at 86% 4%, rgba(17,240,131,.20), transparent 28%),
+    radial-gradient(circle at 16% 0%, rgba(242,196,91,.10), transparent 18%),
     linear-gradient(180deg,#020705 0%,#04140d 42%,#010302 100%)!important;
 }
+
 .left{
   background:
     radial-gradient(circle at 80% 0%, rgba(17,240,131,.12), transparent 35%),
     linear-gradient(160deg, rgba(5,25,17,.96), rgba(1,8,5,.96))!important;
 }
-.brand{align-items:center!important;}
-.mark.safeLogo{border-radius:26px!important;}
+
 .brand h1{
   font-weight:950!important;
   letter-spacing:-.045em!important;
 }
-.brand h1 span{color:var(--ui-green)!important;}
-.notice{color:rgba(245,255,249,.82)!important;}
+.brand h1 span{color:var(--lf-green)!important;}
+.notice{color:rgba(245,255,249,.84)!important;}
+
 .roleBox{
   border-radius:24px!important;
-  border:1px solid var(--ui-line)!important;
+  border:1px solid rgba(17,240,131,.34)!important;
   background:
-    radial-gradient(circle at 15% 20%, rgba(17,240,131,.12), transparent 28%),
+    radial-gradient(circle at 15% 20%, rgba(17,240,131,.13), transparent 28%),
     linear-gradient(135deg, rgba(7,31,22,.96), rgba(2,13,9,.94))!important;
-  box-shadow:var(--ui-shadow)!important;
+  box-shadow:var(--lf-shadow)!important;
 }
+
+/* Botones finales: limpios, uniformes, sin emojis improvisados */
 nav button{
   background:
-    radial-gradient(circle at 12% 12%, rgba(17,240,131,.16), transparent 30%),
+    radial-gradient(circle at 12% 12%, rgba(17,240,131,.15), transparent 30%),
     linear-gradient(145deg, rgba(10,35,26,.95), rgba(3,16,12,.96))!important;
   border:1px solid rgba(17,240,131,.30)!important;
-  box-shadow:var(--ui-shadow)!important;
+  box-shadow:var(--lf-shadow)!important;
   color:#fff!important;
-  transition:transform .12s ease, border-color .12s ease, background .12s ease!important;
+  transition:transform .12s ease, border-color .12s ease!important;
 }
 nav button:active{transform:scale(.985)!important;}
 nav button.active{
@@ -1054,42 +1059,47 @@ nav button.active{
     radial-gradient(circle at 12% 12%, rgba(17,240,131,.22), transparent 34%),
     linear-gradient(145deg, rgba(12,49,35,.98), rgba(3,16,12,.96))!important;
 }
+
+/* Iconos tipo insignia: texto corto profesional, estable en todos los celulares */
 nav button::before{
-  content:"";
-  color:var(--ui-green)!important;
-  font-weight:900!important;
-  font-size:24px!important;
+  color:var(--lf-green)!important;
+  font-weight:950!important;
+  font-size:12px!important;
+  letter-spacing:.04em!important;
   border:1px solid rgba(17,240,131,.35)!important;
   background:radial-gradient(circle at 35% 25%, rgba(17,240,131,.28), rgba(1,12,7,.45))!important;
   box-shadow:inset 0 0 16px rgba(17,240,131,.10), 0 10px 24px rgba(0,0,0,.30)!important;
 }
-nav button[data-module="inicio"]::before{content:"⌂"!important;}
-nav button[data-module="pwa"]::before{content:"▯"!important;}
-nav button[data-module="celular"]::before{content:"▯"!important;}
-nav button[data-module="demo"]::before{content:"◉"!important;}
-nav button[data-module="masiva"]::before{content:"⇧"!important;}
-nav button[data-module="carga"]::before{content:"✎"!important;}
-nav button[data-module="equipos"]::before{content:"♜"!important;}
-nav button[data-module="jugadores"]::before{content:"●"!important;}
-nav button[data-module="calendario"]::before{content:"▦"!important;}
-nav button[data-module="resultados"]::before{content:"♛"!important;}
-nav button[data-module="tabla"]::before{content:"▥"!important;}
-nav button[data-module="pagos"]::before{content:"▰"!important;}
-nav button[data-module="reportes"]::before{content:"▤"!important;}
-nav button[data-module="qr"]::before{content:"▦"!important;}
+nav button[data-module="inicio"]::before{content:"IN"!important;}
+nav button[data-module="pwa"]::before{content:"APP"!important;}
+nav button[data-module="celular"]::before{content:"CEL"!important;}
+nav button[data-module="demo"]::before{content:"DEMO"!important;}
+nav button[data-module="masiva"]::before{content:"XLS"!important;}
+nav button[data-module="carga"]::before{content:"CAP"!important;}
+nav button[data-module="equipos"]::before{content:"EQ"!important;}
+nav button[data-module="jugadores"]::before{content:"JG"!important;}
+nav button[data-module="calendario"]::before{content:"CAL"!important;}
+nav button[data-module="resultados"]::before{content:"RES"!important;}
+nav button[data-module="tabla"]::before{content:"TAB"!important;}
+nav button[data-module="pagos"]::before{content:"PAG"!important;}
+nav button[data-module="reportes"]::before{content:"REP"!important;}
+nav button[data-module="qr"]::before{content:"QR"!important;}
+
 nav button::after{
-  color:var(--ui-gold)!important;
+  color:var(--lf-gold)!important;
   font-size:28px!important;
 }
+
 .mobileScreenBar{
   background:rgba(2,10,7,.96)!important;
   border-bottom:1px solid rgba(17,240,131,.22)!important;
 }
 .mobileScreenBar button{
-  color:var(--ui-gold)!important;
+  color:var(--lf-gold)!important;
   border-color:rgba(242,196,91,.42)!important;
   background:rgba(242,196,91,.07)!important;
 }
+
 .right{
   background:
     radial-gradient(circle at 85% 0%, rgba(17,240,131,.14), transparent 30%),
@@ -1100,14 +1110,17 @@ nav button::after{
   background:
     radial-gradient(circle at 10% 12%, rgba(17,240,131,.12), transparent 28%),
     linear-gradient(145deg, rgba(10,34,25,.94), rgba(3,14,10,.95))!important;
-  box-shadow:var(--ui-shadow)!important;
+  box-shadow:var(--lf-shadow)!important;
 }
 .actions button,.btnGrid button,.loginCard button{
   background:linear-gradient(135deg, rgba(17,240,131,.16), rgba(3,70,38,.32))!important;
   border-color:rgba(17,240,131,.32)!important;
 }
+
 @media(max-width:760px){
-  body:not(.screen-open) .left{padding-bottom:96px!important;}
+  body:not(.screen-open) .left{
+    padding-bottom:96px!important;
+  }
   body:not(.screen-open) nav{
     display:grid!important;
     grid-template-columns:1fr 1fr!important;
@@ -1133,5 +1146,8 @@ nav button::after{
     border-radius:13px!important;
     left:14px!important;
     top:14px!important;
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
   }
 }

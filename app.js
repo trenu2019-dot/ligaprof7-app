@@ -436,7 +436,7 @@ async function showMobileInfo(){
 
 
 
-/* ===== V1.0 PRESENTABLE Instalación ===== */
+/* ===== V1.4 LANZAMIENTO Instalación ===== */
 let deferredPwaPrompt = null;
 
 function isStandalonePWA(){
