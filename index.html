@@ -3,94 +3,177 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>LigaPro F7 V1.5</title>
+<title>LigaPro F7 V1.6</title>
 <link rel="manifest" href="/manifest.webmanifest"/>
-<meta name="theme-color" content="#001b0d"/>
+<meta name="theme-color" content="#20b565"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="LigaPro F7"/>
 <link rel="apple-touch-icon" href="/assets/icons/icon-192.png"/>
-<link rel="stylesheet" href="/styles.css?v=1500"/>
+<link rel="stylesheet" href="/styles.css?v=1600"/>
 </head>
-<body>
+<body class="ux-deporstar">
 <div id="toast" class="toast"></div>
-<main class="layout">
-  <aside class="left">
-    <div class="brand"><div class="mark deporLogo"><img src="/assets/ligapro-f7-deporstar.svg" alt="LigaPro F7"/></div><div><h1>LigaPro <span>F7</span></h1><b>V1.5</b></div></div>
-    <p class="notice">App para crear y administrar torneos de Fútbol 7: equipos, jugadores, fixture, resultados, tablas, pagos, QR y reportes.</p>
-    <div id="roleBox" class="roleBox">Sin sesión</div>
-    <div id="mobileAuthBox" class="mobileAuthBox">
-      <b>Acceso rápido</b>
-      <div class="mobileAuthInputs">
-        <input id="mobileUsername" placeholder="Usuario: admin"/>
-        <input id="mobilePin" placeholder="PIN: 2026" type="password"/>
-      </div>
-      <button type="button" onclick="loginMobileManual()">Ingresar</button>
-      <div class="mobileAuthDemo">
-        <button type="button" onclick="loginDemo('admin')">Admin</button>
-        <button type="button" onclick="loginDemo('arbitro')">Árbitro</button>
-        <button type="button" onclick="loginDemo('director')">Director</button>
-        <button type="button" onclick="loginDemo('consulta')">Consulta</button>
-      </div>
-    </div>
-    <button id="pwaInstallBtn" class="pwaInstallBtn" style="display:none">Instalar app</button>
-    <a class="pwaLink" href="/instalar" target="_blank">Guía instalación</a>
-    <nav id="nav"></nav>
-    <div class="demo">
-      <b>Acceso directo</b>
-      <button onclick="loginDemo('admin')">Entrar Admin</button>
-      <button onclick="loginDemo('arbitro')">Entrar Árbitro</button>
-      <button onclick="loginDemo('director')">Entrar Director</button>
-      <button onclick="loginDemo('consulta')">Entrar Consulta</button>
-    </div>
-  </aside>
 
-  <section class="center">
-    <div class="phone">
-      <img id="mock" src="/assets/login.png" alt="" onerror="this.style.display='none'"/>
-      <div id="loginCard" class="loginCard">
-        <h2>Acceso LigaPro F7</h2>
-        <input id="username" placeholder="Usuario: admin"/>
-        <input id="pin" placeholder="PIN: 2026" type="password"/>
-        <button onclick="loginManual()">Ingresar</button>
-        <div class="mini">
-          <button onclick="loginDemo('admin')">Admin</button>
-          <button onclick="loginDemo('arbitro')">Árbitro</button>
-          <button onclick="loginDemo('director')">Director</button>
-          <button onclick="loginDemo('consulta')">Consulta</button>
-        </div>
+<header class="publicTopbar">
+  <a class="publicBrand" href="/" onclick="goLanding(event)">
+    <img src="/assets/ligapro-f7-plataforma.svg" alt="LigaPro F7"/>
+    <strong>LigaPro F7</strong>
+  </a>
+  <nav class="publicMenu">
+    <a href="#explorar">Explorar</a>
+    <a href="#fixture">Fixture</a>
+    <a href="#comunidad">Comunidad</a>
+    <a href="#guias">Guías</a>
+  </nav>
+  <button class="topLoginBtn" onclick="openLogin()">Ingresar</button>
+</header>
+
+<main class="deporPage">
+  <section id="explorar" class="heroSection">
+    <div class="heroVisual">
+      <div class="heroCircle"></div>
+      <div class="phoneMockup">
+        <div class="phoneBar"></div>
+        <div class="phoneRow"><b>Jornada 1</b><span>18:30</span></div>
+        <div class="phoneRow"><b>Tigres vs Leones</b><span>Cancha 1</span></div>
+        <div class="phoneRow"><b>Tabla general</b><span>12 pts</span></div>
+      </div>
+      <div class="floatingCard cardOne">
+        <b>Equipos</b>
+        <span>Inscripción y plantilla</span>
+      </div>
+      <div class="floatingCard cardTwo">
+        <b>Resultados</b>
+        <span>Tabla y goleadores</span>
+      </div>
+      <div class="personBadge">F7</div>
+    </div>
+
+    <div class="heroCopy">
+      <small>¿Cómo empezar?</small>
+      <h1>App para crear torneos de fútbol</h1>
+      <p>Administra tu torneo paso a paso: equipos, formatos, fixture automático, tablas, estadísticas, pagos, reportes y credenciales QR.</p>
+      <div class="quickSteps">
+        <button onclick="startFlow('carga')"><span>✓</span>Crea un Torneo</button>
+        <button onclick="startFlow('equipos')"><span>✓</span>Inscribe Equipos</button>
+        <button onclick="startFlow('calendario')"><span>✓</span>Genera Partidos</button>
+        <button onclick="startFlow('resultados')"><span>✓</span>Registra resultados</button>
+      </div>
+      <div class="heroActions">
+        <button class="primaryCta" onclick="startFlow('carga')">Crear Torneo Ahora</button>
+        <button class="secondaryCta" onclick="openLogin()">Acceso administrador</button>
       </div>
     </div>
   </section>
 
-  <aside class="right">
-    <div class="mobileScreenBar">
-      <button type="button" onclick="goHome()">← Menú</button>
-      <strong id="mobileScreenTitle">LigaPro F7</strong>
-      <span id="mobileScreenRole">Admin</span>
+  <section id="fixture" class="howSection">
+    <div class="howCopy">
+      <h2>Cómo funciona nuestra app para crear torneos de fútbol</h2>
+      <p>Crea tu torneo desde cero: registra equipos, arma partidos y administra resultados, tarjetas, goleadores, asistencias, pagos, reportes y credenciales QR. Todo desde una sola plataforma.</p>
+      <button class="orangeCta" onclick="startFlow('carga')">Crear Mi Torneo</button>
     </div>
-    <div class="sectionLabel">Centro de control</div><h2 id="moduleTitle">Inicio</h2>
-    <p id="moduleDesc">Panel operativo estable.</p>
-    <div class="grid">
-      <div class="metric"><small>Equipos</small><b id="kTeams">0</b></div>
-      <div class="metric"><small>Jugadores</small><b id="kPlayers">0</b></div>
-      <div class="metric"><small>Ingresos</small><b id="kIncome">$0</b></div>
-      <div class="metric"><small>Pendiente</small><b id="kPending">$0</b></div>
+
+    <div class="featureList">
+      <button onclick="startFlow('equipos')" class="featureCard green">
+        <b>Inscripción Equipos en Torneo</b>
+        <span>Tú o los capitanes pueden gestionar sus equipos, jugadores y fichas de partido.</span>
+      </button>
+      <button onclick="startFlow('calendario')" class="featureCard orange">
+        <b>Crear Calendarios de partidos</b>
+        <span>Genera o registra partidos con jornada, cancha, hora, local y visitante.</span>
+      </button>
+      <button onclick="startFlow('jugadores')" class="featureCard blue">
+        <b>Registrar Jugadores en el Torneo</b>
+        <span>Gestiona jugadores, posiciones, números, plantillas y estadísticas.</span>
+      </button>
+      <button onclick="startFlow('reportes')" class="featureCard green">
+        <b>Descarga Reportes</b>
+        <span>Descarga Excel, PDF, backup y reportes para controlar tu liga.</span>
+      </button>
     </div>
-    <div id="loadPanel"></div>
-    <div class="actions">
-      <button onclick="openUrl('/dashboard')">Dashboard</button>
-      <button onclick="openUrl('/checklist')">Checklist</button>
-      <button onclick="openUrl('/api/reports/enterprise.xlsx')">XLSX</button>
-      <button onclick="openUrl('/api/reports/enterprise.pdf')">PDF</button>
-      <button onclick="openUrl('/api/backup/full')">Backup</button>
-      <button onclick="openQr()">QR jugador</button>
-      <button onclick="logout()">Cerrar sesión</button>
+  </section>
+
+  <section id="comunidad" class="adminSection">
+    <div class="adminHeader">
+      <div>
+        <small>Panel operativo</small>
+        <h2>Administración LigaPro F7</h2>
+        <p>Accede solo a lo necesario. Menos saturación, más operación real.</p>
+      </div>
+      <div id="roleBox" class="roleBox">Sin sesión</div>
     </div>
-    <div id="content" class="content"></div>
-  </aside>
+
+    <nav id="nav" class="moduleGrid"></nav>
+
+    <section class="workspace">
+      <aside class="right">
+        <div class="mobileScreenBar">
+          <button type="button" onclick="goHome()">← Menú</button>
+          <strong id="mobileScreenTitle">LigaPro F7</strong>
+          <span id="mobileScreenRole">Admin</span>
+        </div>
+
+        <div class="sectionLabel">Centro de control</div>
+        <h2 id="moduleTitle">Inicio</h2>
+        <p id="moduleDesc">Panel operativo estable.</p>
+
+        <div class="grid">
+          <div class="metric"><small>Equipos</small><b id="kTeams">0</b></div>
+          <div class="metric"><small>Jugadores</small><b id="kPlayers">0</b></div>
+          <div class="metric"><small>Ingresos</small><b id="kIncome">$0</b></div>
+          <div class="metric"><small>Pendiente</small><b id="kPending">$0</b></div>
+        </div>
+
+        <div id="loadPanel"></div>
+
+        <div class="actions">
+          <button onclick="openUrl('/dashboard')">Dashboard</button>
+          <button onclick="openUrl('/checklist')">Checklist</button>
+          <button onclick="openUrl('/api/reports/enterprise.xlsx')">XLSX</button>
+          <button onclick="openUrl('/api/reports/enterprise.pdf')">PDF</button>
+          <button onclick="openUrl('/api/backup/full')">Backup</button>
+          <button onclick="openQr()">QR jugador</button>
+          <button onclick="logout()">Cerrar sesión</button>
+        </div>
+
+        <div id="content" class="content"></div>
+      </aside>
+    </section>
+  </section>
+
+  <section id="guias" class="guideSection">
+    <h2>Guía rápida</h2>
+    <div class="guideGrid">
+      <div><b>1</b><span>Configura el torneo</span></div>
+      <div><b>2</b><span>Registra equipos y jugadores</span></div>
+      <div><b>3</b><span>Programa partidos</span></div>
+      <div><b>4</b><span>Captura resultados y pagos</span></div>
+    </div>
+  </section>
 </main>
+
+<div id="loginOverlay" class="loginOverlay">
+  <div id="loginCard" class="loginCard">
+    <button class="closeLogin" onclick="closeLogin()">×</button>
+    <img src="/assets/ligapro-f7-plataforma.svg" alt="LigaPro F7"/>
+    <h2>Acceso LigaPro F7</h2>
+    <p>Entra como administrador para operar el torneo.</p>
+    <input id="username" placeholder="Usuario: admin"/>
+    <input id="pin" placeholder="PIN: 2026" type="password"/>
+    <button onclick="loginManual()">Ingresar</button>
+    <div class="mini">
+      <button onclick="loginDemo('admin')">Admin</button>
+      <button onclick="loginDemo('arbitro')">Árbitro</button>
+      <button onclick="loginDemo('director')">Director</button>
+      <button onclick="loginDemo('consulta')">Consulta</button>
+    </div>
+  </div>
+</div>
+
+<img id="mock" src="/assets/login.png" alt="" style="display:none"/>
+
 <div id="mobileBottomNav" class="mobileBottomNav">
   <button type="button" onclick="goHome()">Inicio</button>
   <button type="button" onclick="setModule('equipos')">Equipos</button>
@@ -98,6 +181,7 @@
   <button type="button" onclick="setModule('calendario')">Calendario</button>
   <button type="button" onclick="setModule('pagos')">Pagos</button>
 </div>
-<script src="/app.js?v=1500"></script>
+
+<script src="/app.js?v=1600"></script>
 </body>
 </html>

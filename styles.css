@@ -1,1295 +1,543 @@
-:root{--green:#00e676;--gold:#f6c945;--red:#ff4058;--muted:#a9b8af}
-*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 40% 0,rgba(0,230,118,.18),transparent 35%),#000;color:#f6fff9;font-family:Inter,system-ui,Segoe UI,Arial,sans-serif}
-.layout{min-height:100vh;display:grid;grid-template-columns:330px minmax(420px,1fr) 420px;gap:20px;padding:26px}
-.left,.right{border:1px solid rgba(255,255,255,.13);border-radius:28px;background:linear-gradient(145deg,rgba(8,27,17,.94),rgba(1,5,3,.98));padding:22px;align-self:start;max-height:calc(100vh - 52px);overflow:auto}
-.brand{display:flex;gap:14px;align-items:center}.mark{width:58px;height:48px;border-radius:15px;background:linear-gradient(135deg,#fff 0 48%,var(--green) 48%);display:grid;place-items:center;color:#06140d;font-weight:950;font-size:26px}.brand h1{margin:0;font-size:28px}.brand span,.brand b{color:var(--green)}.brand b{font-size:12px;color:var(--gold);letter-spacing:.12em}
-.notice,.moduleDesc{color:var(--muted);line-height:1.4}.roleBox{border:1px solid rgba(0,230,118,.45);border-radius:16px;padding:12px;margin:14px 0;color:var(--green);font-weight:900}
-nav{display:grid;gap:8px;margin:14px 0}nav button,.demo button,.actions button,.loginCard button{min-height:44px;border-radius:14px;border:1px solid rgba(0,230,118,.45);background:rgba(0,230,118,.09);color:var(--green);font-weight:900;cursor:pointer}nav button.active{background:rgba(0,230,118,.22);box-shadow:0 0 18px rgba(0,230,118,.14)}.demo{border-top:1px solid rgba(255,255,255,.13);padding-top:16px;display:grid;gap:8px}.demo b{color:var(--gold)}
-.center{display:grid;place-items:center}.phone{position:relative;width:min(430px,90vw);border-radius:46px;box-shadow:0 0 70px rgba(0,230,118,.15)}.phone img{width:100%;display:block;border-radius:46px}.loginCard{position:absolute;left:7%;right:7%;bottom:5%;z-index:5;background:rgba(0,0,0,.83);border:2px solid rgba(0,230,118,.7);border-radius:24px;padding:16px;box-shadow:0 0 30px rgba(0,230,118,.16)}.loginCard h2{margin:0 0 10px;text-align:center;color:var(--gold);font-size:17px}.loginCard input{width:100%;height:42px;margin:5px 0;border-radius:12px;border:1px solid rgba(255,255,255,.22);background:#08100b;color:white;padding:0 12px;font-weight:800}.loginCard>button{width:100%;margin-top:8px}.mini{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:8px}.mini button{min-height:34px}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.metric{border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:12px;background:rgba(255,255,255,.04)}.metric small{display:block;color:var(--muted);text-transform:uppercase;font-size:11px}.metric b{font-size:22px;color:var(--green)}.actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin:14px 0}.actions button:nth-child(even){border-color:rgba(246,201,69,.45);color:var(--gold);background:rgba(246,201,69,.08)}
-.row{border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:11px;margin:8px 0;background:rgba(255,255,255,.04);display:flex;justify-content:space-between;gap:12px}.row small{display:block;color:var(--muted)}.pill{color:var(--green);border:1px solid rgba(0,230,118,.45);border-radius:999px;padding:5px 8px;font-size:12px;height:max-content}.toast{position:fixed;right:20px;bottom:20px;background:#08100b;border:1px solid var(--green);border-radius:14px;padding:12px 16px;color:white;display:none;z-index:99}
-@media(max-width:1100px){.layout{grid-template-columns:1fr}.left,.right{max-height:none}.center{order:-1}}
-
-/* V30.3 Carga Real */
-.formBox{
-  border:1px solid rgba(0,230,118,.38);
-  border-radius:18px;
-  padding:14px;
-  margin:14px 0;
-  background:rgba(0,230,118,.055);
-}
-.formBox h3{
-  margin:0 0 10px;
-  color:var(--gold);
-  font-size:15px;
-}
-.btnGrid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin-bottom:10px;
-}
-.btnGrid button{
-  min-height:42px;
-  border-radius:13px;
-  border:1px solid rgba(0,230,118,.45);
-  background:rgba(0,230,118,.09);
-  color:var(--green);
-  font-weight:900;
-  cursor:pointer;
-}
-.btnGrid button:nth-child(even){
-  border-color:rgba(246,201,69,.45);
-  color:var(--gold);
-  background:rgba(246,201,69,.08);
-}
-
-
-/* V30.4 Carga masiva */
-.bulkBox{
-  margin-top:14px;
-  border:1px solid rgba(246,201,69,.42);
-  border-radius:18px;
-  padding:14px;
-  background:rgba(246,201,69,.055);
-}
-.bulkBox textarea{
-  width:100%;
-  min-height:170px;
-  resize:vertical;
-  border-radius:14px;
-  border:1px solid rgba(255,255,255,.18);
-  background:#050805;
-  color:#f6fff9;
-  padding:12px;
-  font-family:Consolas,monospace;
-  font-size:12px;
-}
-.bulkResult{
-  margin-top:10px;
-  border:1px solid rgba(255,255,255,.12);
-  border-radius:14px;
-  padding:12px;
-  background:rgba(0,0,0,.25);
-  color:#f6fff9;
-  line-height:1.4;
-}
-.bulkIssue{
-  margin-top:6px;
-  padding:7px;
-  border-radius:10px;
-  background:rgba(255,64,88,.10);
-  border:1px solid rgba(255,64,88,.25);
-  color:#ffd7dc;
-  font-size:12px;
-}
-
-/* V30.4.1 hotfix csv buttons */
-.formBox input[type=file]{width:100%;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px;margin:8px 0;background:#050805;color:#f6fff9}
-
-/* V30.4.2 Excel paste */
-
-/* V31 Demo Presentable Celular */
-.v31badge{display:inline-block;background:linear-gradient(135deg,#00ff88,#f6c945);color:#001b0d;font-weight:900;padding:4px 8px;border-radius:999px;}
-
-
-/* V32 PWA */
-.pwaInstallBtn{
-  width:100%;
-  border:0;
-  border-radius:16px;
-  padding:13px 14px;
-  background:linear-gradient(135deg,#00ff88,#f6c945);
-  color:#001b0d;
-  font-weight:1000;
-  cursor:pointer;
-  margin:10px 0;
-  box-shadow:0 10px 24px rgba(0,230,118,.20);
-}
-.pwaLink{
-  display:block;
-  text-align:center;
-  color:#f6c945;
-  text-decoration:none;
-  border:1px solid rgba(246,201,69,.40);
-  border-radius:14px;
-  padding:10px;
-  margin:8px 0 12px;
-}
-.installCard{
-  max-width:430px;
-  margin:40px auto;
-  padding:24px;
-  background:#062916;
-  border:1px solid #00b050;
-  border-radius:24px;
-  color:#fff;
-  font-family:Arial,sans-serif;
-}
-.installCard h1{color:#00ff88}
-.installBtn{
-  display:block;
-  width:100%;
-  box-sizing:border-box;
-  text-align:center;
-  border:0;
-  margin:10px 0;
-  padding:14px;
-  border-radius:14px;
-  background:#00b050;
-  color:#001b0d;
-  font-weight:900;
-  text-decoration:none;
-}
-@media (display-mode: standalone){
-  .pwaLink{display:none}
-}
-
-/* LigaPro F7 V1.0 Presentable */
-.brand b{letter-spacing:1.8px;color:#f6c945}
-.phone{background:radial-gradient(circle at 50% 20%, rgba(0,230,118,.18), transparent 35%), #020805;}
-.loginCard{backdrop-filter: blur(8px);}
-.notice{font-size:15px;line-height:1.45;}
-.metric b{font-size:28px;}
-#mock{border-radius:30px;filter:drop-shadow(0 22px 45px rgba(0,0,0,.55));}
-
 
 /* =========================================================
-   LIGAPRO F7 V1.1 PRO - REDISEÑO VISUAL REAL
+   LIGAPRO F7 V1.6 - UX TIPO DEPÓRSTAR
+   Rediseño estructural: landing clara + panel operativo ordenado
    ========================================================= */
+
 :root{
-  --lp-bg:#020706;
-  --lp-panel:rgba(3,24,14,.92);
-  --lp-panel2:rgba(0,55,28,.72);
-  --lp-green:#00f07a;
-  --lp-green2:#00b85c;
-  --lp-gold:#ffd34f;
-  --lp-text:#f7fff9;
-  --lp-muted:#a7b8af;
-  --lp-line:rgba(0,240,122,.30);
-  --lp-shadow:0 24px 70px rgba(0,0,0,.45), 0 0 38px rgba(0,240,122,.10);
+  --bg:#dfe9ec;
+  --soft:#eaf8ef;
+  --panel:#ffffff;
+  --green:#21b66a;
+  --greenDark:#109553;
+  --orange:#ff9f12;
+  --blue:#1686d9;
+  --text:#27313a;
+  --muted:#66727c;
+  --line:#d5e0e5;
+  --shadow:0 8px 22px rgba(33,55,70,.10);
 }
-body{
-  background:
-    radial-gradient(circle at 12% 12%, rgba(0,240,122,.20), transparent 28%),
-    radial-gradient(circle at 85% 8%, rgba(255,211,79,.10), transparent 22%),
-    linear-gradient(135deg,#020706 0%,#001509 45%,#020706 100%);
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body.ux-deporstar{
+  margin:0!important;
+  background:var(--bg)!important;
+  color:var(--text)!important;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif!important;
 }
-.layout{
-  gap:24px;
-  padding:28px;
-}
-.left,.right{
-  background:
-    linear-gradient(160deg, rgba(6,34,20,.96), rgba(0,9,5,.94)),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.025) 0 1px, transparent 1px 22px);
-  border:1px solid var(--lp-line);
-  box-shadow:var(--lp-shadow);
-}
-.left{
-  position:relative;
-  overflow:auto;
-}
-.left::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  height:180px;
-  background:linear-gradient(135deg, rgba(0,240,122,.28), transparent 58%);
-  pointer-events:none;
-}
-.brand{
-  position:relative;
-  z-index:1;
-}
-.mark{
-  width:64px;
+button,a{font:inherit}
+button{cursor:pointer}
+
+/* Topbar como referencia */
+.publicTopbar{
   height:64px;
-  border-radius:20px;
-  box-shadow:0 0 0 7px rgba(0,240,122,.08), 0 16px 34px rgba(0,0,0,.35);
+  display:flex;
+  align-items:center;
+  gap:28px;
+  padding:0 18px;
+  background:rgba(223,233,236,.94);
+  border-bottom:1px solid rgba(0,0,0,.06);
+  position:sticky;
+  top:0;
+  z-index:50;
+  backdrop-filter:blur(8px);
 }
-.brand h1{
-  font-size:30px;
-  letter-spacing:-.04em;
+.publicBrand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  text-decoration:none;
 }
-.brand b{
-  display:inline-block;
-  margin-top:4px;
-  background:rgba(255,211,79,.12);
-  border:1px solid rgba(255,211,79,.28);
-  padding:3px 8px;
-  border-radius:999px;
+.publicBrand img{
+  width:38px;
+  height:38px;
 }
-.notice{
-  position:relative;
-  z-index:1;
+.publicBrand strong{
+  color:var(--green);
+  font-size:25px;
+  font-weight:900;
+  letter-spacing:-.03em;
+}
+.publicMenu{
+  display:flex;
+  gap:28px;
+}
+.publicMenu a{
+  color:#2f3a43;
+  text-decoration:none;
   font-size:15px;
-  margin-top:20px;
 }
-.proBadges{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:8px;
-  margin:18px 0;
-  position:relative;
-  z-index:1;
-}
-.proBadges span{
-  border:1px solid rgba(255,255,255,.12);
-  background:rgba(255,255,255,.055);
-  color:#dfffee;
-  border-radius:14px;
-  padding:9px 10px;
-  font-size:12px;
+.topLoginBtn{
+  margin-left:auto;
+  background:var(--green);
+  color:#fff;
+  border:0;
+  border-radius:10px;
   font-weight:800;
+  padding:12px 22px;
+  box-shadow:0 6px 15px rgba(33,182,106,.22);
 }
-.mobileDashboard{
+
+/* Landing */
+.deporPage{
+  max-width:1220px;
+  margin:0 auto;
+  padding:42px 22px 80px;
+}
+.heroSection{
   display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:10px;
-  margin:14px 0 18px;
+  grid-template-columns:1.1fr 1fr;
+  gap:46px;
+  align-items:center;
+  min-height:420px;
 }
-.mobileDashboard div{
-  background:linear-gradient(135deg,rgba(0,240,122,.16),rgba(255,255,255,.04));
-  border:1px solid rgba(0,240,122,.25);
-  border-radius:18px;
-  padding:12px;
-}
-.mobileDashboard small{
-  display:block;
-  color:var(--lp-muted);
-  text-transform:uppercase;
-  font-size:10px;
-  letter-spacing:.08em;
-}
-.mobileDashboard b{
-  color:var(--lp-green);
-  font-size:16px;
-}
-.roleBox{
-  background:linear-gradient(135deg, rgba(0,240,122,.16), rgba(0,0,0,.18));
-  border-color:rgba(0,240,122,.55);
-  box-shadow:inset 0 0 24px rgba(0,240,122,.05);
-}
-nav{
-  gap:10px;
-}
-nav button{
-  min-height:54px;
-  border-radius:18px;
-  text-align:left;
-  padding:0 16px 0 54px;
+.heroVisual{
+  min-height:360px;
   position:relative;
-  background:linear-gradient(135deg, rgba(0,240,122,.13), rgba(0,45,23,.50));
-  border-color:rgba(0,240,122,.32);
-  color:#dfffee;
-  box-shadow:0 12px 28px rgba(0,0,0,.18);
-}
-nav button::before{
-  content:"⚽";
-  position:absolute;
-  left:16px;
-  top:50%;
-  transform:translateY(-50%);
-  width:28px;
-  height:28px;
   display:grid;
   place-items:center;
-  border-radius:10px;
-  background:rgba(0,240,122,.16);
 }
-nav button:nth-child(2)::before{content:"📲"}
-nav button:nth-child(3)::before{content:"📱"}
-nav button:nth-child(4)::before{content:"🎮"}
-nav button:nth-child(5)::before{content:"📥"}
-nav button:nth-child(6)::before{content:"✍️"}
-nav button:nth-child(7)::before{content:"🛡️"}
-nav button:nth-child(8)::before{content:"👤"}
-nav button:nth-child(9)::before{content:"🗓️"}
-nav button:nth-child(10)::before{content:"🏁"}
-nav button:nth-child(11)::before{content:"📊"}
-nav button:nth-child(12)::before{content:"💳"}
-nav button:nth-child(13)::before{content:"📑"}
-nav button:nth-child(14)::before{content:"📺"}
-nav button.active{
-  background:linear-gradient(135deg, rgba(0,240,122,.34), rgba(0,85,42,.66));
-  color:#fff;
-  border-color:rgba(0,240,122,.75);
+.heroCircle{
+  width:270px;
+  height:270px;
+  border-radius:50%;
+  border:8px solid var(--green);
+  background:#eef8f2;
+  opacity:.95;
 }
-.center .phone{
-  width:min(520px,92vw);
-  background:linear-gradient(150deg,rgba(0,240,122,.12),rgba(0,0,0,.7));
-  border:1px solid rgba(0,240,122,.18);
-  padding:10px;
-}
-.center .phone::before{
-  content:"LigaPro F7 · App demo";
+.personBadge{
   position:absolute;
-  top:-44px;
-  left:50%;
-  transform:translateX(-50%);
-  color:var(--lp-muted);
-  font-size:13px;
-  letter-spacing:.08em;
-  text-transform:uppercase;
+  width:170px;
+  height:170px;
+  border-radius:44px;
+  display:grid;
+  place-items:center;
+  font-size:66px;
+  font-weight:950;
+  color:#fff;
+  background:linear-gradient(135deg,#21b66a,#0b7f47);
+  box-shadow:var(--shadow);
 }
-.loginCard{
-  backdrop-filter:blur(12px);
-}
-.sectionLabel{
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-  background:rgba(0,240,122,.12);
-  color:var(--lp-green);
-  border:1px solid rgba(0,240,122,.25);
-  border-radius:999px;
-  padding:6px 10px;
-  font-size:11px;
-  font-weight:900;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-}
-.right h2{
-  font-size:30px;
-  line-height:1.05;
-  margin:12px 0 8px;
-}
-.grid{
-  grid-template-columns:repeat(2,minmax(0,1fr));
-}
-.metric{
-  background:linear-gradient(135deg, rgba(0,240,122,.14), rgba(255,255,255,.04));
-  border-color:rgba(0,240,122,.22);
-  min-height:86px;
-}
-.metric b{
-  font-size:27px;
-}
-.row{
-  background:linear-gradient(135deg, rgba(255,255,255,.07), rgba(0,240,122,.05));
-  border-color:rgba(255,255,255,.10);
+.phoneMockup{
+  position:absolute;
+  left:18%;
+  top:40px;
+  width:136px;
   border-radius:18px;
-  padding:14px;
+  padding:12px;
+  background:#1c262b;
+  color:#fff;
+  box-shadow:var(--shadow);
+  transform:rotate(-5deg);
 }
-.row b{
-  font-size:15px;
+.phoneBar{
+  height:8px;
+  width:55px;
+  border-radius:99px;
+  background:#44525a;
+  margin:0 auto 10px;
 }
-.row small{
-  margin-top:5px;
-  font-size:13px;
+.phoneRow{
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:8px;
+  padding:7px;
+  margin:6px 0;
+  font-size:10px;
 }
-.pill{
-  background:rgba(0,240,122,.10);
-  color:var(--lp-green);
+.phoneRow b,.phoneRow span{display:block}
+.phoneRow span{color:#aebbc3}
+.floatingCard{
+  position:absolute;
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  padding:12px 15px;
+  border-radius:8px;
+  min-width:190px;
 }
-.formBox{
-  background:linear-gradient(135deg,rgba(0,240,122,.09),rgba(255,255,255,.035));
-  border-color:rgba(0,240,122,.28);
-}
-.actions button,.btnGrid button,.loginCard button,.demo button{
-  border-radius:16px;
-  background:linear-gradient(135deg,rgba(0,240,122,.16),rgba(0,66,32,.35));
-}
-.pwaLink{
-  display:block;
-  text-align:center;
-  text-decoration:none;
-  border:1px solid rgba(255,211,79,.30);
-  color:var(--lp-gold);
-  border-radius:16px;
-  padding:13px;
+.floatingCard b{display:block;color:var(--green);font-size:14px}
+.floatingCard span{display:block;color:var(--muted);font-size:12px}
+.cardOne{right:8%;top:94px}
+.cardTwo{left:14%;bottom:44px}
+
+.heroCopy small{
+  color:var(--orange);
   font-weight:900;
-  background:rgba(255,211,79,.06);
 }
-
-/* Móvil: ahora sí cambia la experiencia completa */
-@media(max-width:760px){
-  html,body{min-height:100%; overflow-x:hidden;}
-  body{
-    background:
-      radial-gradient(circle at 50% -12%, rgba(0,240,122,.22), transparent 42%),
-      linear-gradient(180deg,#03140b 0%,#010504 48%,#000 100%);
-  }
-  .layout{
-    display:block;
-    padding:0;
-    min-height:100vh;
-  }
-  .left{
-    border:none;
-    border-radius:0 0 32px 32px;
-    max-height:none;
-    min-height:auto;
-    padding:26px 20px 18px;
-    box-shadow:0 30px 70px rgba(0,0,0,.42);
-  }
-  .left::before{
-    height:240px;
-    background:
-      radial-gradient(circle at 20% 0, rgba(0,240,122,.36), transparent 42%),
-      radial-gradient(circle at 85% 12%, rgba(255,211,79,.16), transparent 30%);
-  }
-  .brand{
-    gap:14px;
-    align-items:center;
-  }
-  .mark{
-    width:62px;
-    height:62px;
-    border-radius:21px;
-    font-size:27px;
-  }
-  .brand h1{
-    font-size:28px;
-  }
-  .notice{
-    font-size:16px;
-    line-height:1.42;
-    margin:18px 0 14px;
-    color:#d7e7df;
-  }
-  .proBadges{
-    grid-template-columns:1fr 1fr;
-  }
-  .roleBox{
-    margin-top:18px;
-    padding:16px;
-    border-radius:20px;
-    font-size:15px;
-  }
-  nav{
-    grid-template-columns:1fr 1fr;
-    display:grid;
-    gap:12px;
-    margin-top:18px;
-  }
-  nav button{
-    min-height:92px;
-    border-radius:24px;
-    padding:42px 12px 12px 14px;
-    text-align:left;
-    font-size:13px;
-    color:#eafff2;
-  }
-  nav button::before{
-    left:14px;
-    top:14px;
-    transform:none;
-    width:32px;
-    height:32px;
-    font-size:18px;
-  }
-  .demo{
-    display:none;
-  }
-  .center{
-    display:none;
-  }
-  .right{
-    margin:18px 14px 92px;
-    border-radius:30px;
-    max-height:none;
-    overflow:visible;
-    padding:20px;
-  }
-  .right h2{
-    font-size:27px;
-  }
-  .grid{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-  .metric{
-    min-height:78px;
-    padding:13px;
-    border-radius:20px;
-  }
-  .metric b{
-    font-size:24px;
-  }
-  .actions{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-  .actions button{
-    min-height:50px;
-    border-radius:18px;
-    font-size:13px;
-  }
-  .row{
-    display:block;
-    border-radius:20px;
-    padding:16px;
-  }
-  .row .pill{
-    display:inline-block;
-    margin-top:10px;
-  }
-  textarea#bulkCsvText{
-    min-height:110px;
-    width:100%;
-  }
-  .btnGrid{
-    grid-template-columns:1fr;
-  }
-  .toast{
-    left:14px;
-    right:14px;
-    bottom:18px;
-  }
+.heroCopy h1{
+  color:var(--green);
+  font-size:32px;
+  line-height:1.05;
+  margin:16px 0;
+  max-width:430px;
 }
-
-/* Ajuste para que V1.1 se perciba como app y no como web vieja */
-@media(max-width:760px){
-  body::after{
-    content:"";
-    position:fixed;
-    left:0;right:0;bottom:0;
-    height:56px;
-    background:linear-gradient(180deg,transparent,rgba(0,0,0,.78));
-    pointer-events:none;
-    z-index:2;
-  }
+.heroCopy p{
+  color:#33414b;
+  line-height:1.5;
+  max-width:520px;
 }
-
-
-/* =========================================================
-   LIGAPRO F7 V1.2 - PANTALLAS REALES TIPO APP
-   ========================================================= */
-.mobileScreenBar,
-.mobileBottomNav{
-  display:none;
+.quickSteps{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  max-width:460px;
+  margin:22px 0;
 }
-
-@media(max-width:760px){
-  html,body{
-    height:100%;
-    min-height:100%;
-    overflow-x:hidden;
-  }
-
-  body{
-    background:#020805;
-  }
-
-  .layout{
-    display:block;
-    padding:0;
-    min-height:100vh;
-  }
-
-  /* HOME: menú principal, ya no muestra el contenido abajo */
-  body:not(.screen-open) .right,
-  body:not(.screen-open) .center{
-    display:none !important;
-  }
-
-  body:not(.screen-open) .left{
-    display:block;
-    min-height:100vh;
-    border-radius:0;
-    padding:24px 18px 96px;
-    max-height:none;
-    overflow:visible;
-  }
-
-  body:not(.screen-open) .brand{
-    margin-top:8px;
-  }
-
-  body:not(.screen-open) .brand h1{
-    font-size:28px;
-  }
-
-  body:not(.screen-open) .notice{
-    font-size:15px;
-    color:#d8efe4;
-  }
-
-  body:not(.screen-open) .roleBox{
-    font-size:14px;
-    border-radius:20px;
-  }
-
-  body:not(.screen-open) nav{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:12px;
-    margin-top:18px;
-  }
-
-  body:not(.screen-open) nav button{
-    min-height:108px;
-    border-radius:26px;
-    padding:46px 12px 12px 14px;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-start;
-    justify-content:flex-end;
-    font-size:14px;
-    line-height:1.1;
-    position:relative;
-  }
-
-  body:not(.screen-open) nav button span{
-    display:block;
-    font-weight:950;
-  }
-
-  body:not(.screen-open) nav button small{
-    display:block;
-    margin-top:7px;
-    color:rgba(230,255,240,.70);
-    font-size:11px;
-    font-weight:700;
-  }
-
-  body:not(.screen-open) nav button::after{
-    content:"›";
-    position:absolute;
-    right:16px;
-    top:14px;
-    color:var(--lp-green);
-    font-size:27px;
-    font-weight:900;
-  }
-
-  body:not(.screen-open) nav button.active{
-    border-color:rgba(0,240,122,.40);
-  }
-
-  body:not(.screen-open) .pwaLink,
-  body:not(.screen-open) .pwaInstallBtn{
-    display:none !important;
-  }
-
-  body:not(.screen-open) .demo{
-    display:none !important;
-  }
-
-  /* SCREEN OPEN: pantalla independiente */
-  body.screen-open{
-    overflow:hidden;
-  }
-
-  body.screen-open .left,
-  body.screen-open .center{
-    display:none !important;
-  }
-
-  body.screen-open .right{
-    display:block !important;
-    position:fixed;
-    inset:0;
-    margin:0;
-    padding:86px 16px 92px;
-    width:100vw;
-    height:100vh;
-    overflow-y:auto;
-    border:none;
-    border-radius:0;
-    background:
-      radial-gradient(circle at 50% -16%, rgba(0,240,122,.22), transparent 36%),
-      linear-gradient(180deg,#02130a 0%,#020706 48%,#000 100%);
-    box-shadow:none;
-    z-index:10;
-  }
-
-  body.screen-open .mobileScreenBar{
-    display:flex;
-    align-items:center;
-    gap:10px;
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    height:66px;
-    padding:12px 14px;
-    z-index:40;
-    background:rgba(1,12,7,.94);
-    backdrop-filter:blur(16px);
-    border-bottom:1px solid rgba(0,240,122,.22);
-  }
-
-  .mobileScreenBar button{
-    border:1px solid rgba(0,240,122,.42);
-    background:rgba(0,240,122,.10);
-    color:#eafff2;
-    border-radius:15px;
-    padding:10px 12px;
-    font-weight:900;
-  }
-
-  .mobileScreenBar strong{
-    flex:1;
-    color:#fff;
-    font-size:17px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  .mobileScreenBar span{
-    color:var(--lp-green);
-    font-size:11px;
-    text-transform:uppercase;
-    border:1px solid rgba(0,240,122,.22);
-    border-radius:999px;
-    padding:6px 8px;
-    background:rgba(0,240,122,.08);
-  }
-
-  body.screen-open .sectionLabel{
-    margin-top:4px;
-  }
-
-  body.screen-open .right h2{
-    font-size:28px;
-    margin-top:12px;
-  }
-
-  body.screen-open .right p{
-    color:#cbded4;
-  }
-
-  body.screen-open .grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:18px;
-  }
-
-  body.screen-open .metric{
-    min-height:86px;
-    border-radius:22px;
-  }
-
-  body.screen-open .content{
-    margin-top:16px;
-  }
-
-  body.screen-open .row{
-    border-radius:22px;
-    margin-bottom:12px;
-    padding:16px;
-    background:linear-gradient(135deg,rgba(255,255,255,.08),rgba(0,240,122,.06));
-  }
-
-  body.screen-open .row b{
-    font-size:16px;
-  }
-
-  body.screen-open .row small{
-    font-size:13px;
-    line-height:1.35;
-  }
-
-  body.screen-open .actions{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-    margin-top:14px;
-  }
-
-  body.screen-open .actions button{
-    min-height:52px;
-    border-radius:18px;
-  }
-
-  body.screen-open .formBox{
-    border-radius:24px;
-    padding:16px;
-    margin-top:16px;
-  }
-
-  body.screen-open textarea#bulkCsvText{
-    width:100%;
-    min-height:120px;
-  }
-
-  body.screen-open .btnGrid{
-    display:grid;
-    grid-template-columns:1fr;
-    gap:10px;
-  }
-
-  body.screen-open .btnGrid button{
-    min-height:48px;
-    border-radius:16px;
-  }
-
-  body.screen-open .mobileBottomNav{
-    display:grid;
-    grid-template-columns:repeat(5,1fr);
-    position:fixed;
-    left:0;
-    right:0;
-    bottom:0;
-    height:72px;
-    z-index:45;
-    padding:8px 8px 10px;
-    gap:6px;
-    background:rgba(1,10,6,.96);
-    backdrop-filter:blur(18px);
-    border-top:1px solid rgba(0,240,122,.22);
-  }
-
-  .mobileBottomNav button{
-    border:0;
-    background:transparent;
-    color:#c9ddd3;
-    font-size:11px;
-    font-weight:900;
-    border-radius:14px;
-  }
-
-  .mobileBottomNav button:hover,
-  .mobileBottomNav button:active{
-    background:rgba(0,240,122,.12);
-    color:var(--lp-green);
-  }
-
-  body:not(.screen-open) .mobileBottomNav{
-    display:none !important;
-  }
-
-  /* Que el menú inicial se sienta como app */
-  body:not(.screen-open)::before{
-    content:"LigaPro F7";
-    position:fixed;
-    top:0;
-    left:0;
-    right:0;
-    height:0;
-    z-index:-1;
-  }
-
-  body:not(.screen-open) .mobileDashboard{
-    grid-template-columns:1fr 1fr;
-    gap:10px;
-  }
-
-  body:not(.screen-open) .mobileDashboard div{
-    min-height:74px;
-    border-radius:22px;
-  }
-
-  body:not(.screen-open) .proBadges{
-    grid-template-columns:1fr 1fr;
-  }
-
-  /* Oculta scrollbar horizontal y da sensación nativa */
-  *{
-    -webkit-tap-highlight-color:transparent;
-  }
+.quickSteps button{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  background:#eef5f1;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  color:#2f3a43;
+  border-radius:4px;
+  padding:13px 12px;
+  text-align:left;
 }
-
-
-
-/* =========================================================
-   LIGAPRO F7 V1.2.1 - FIX MENÚ Y ACCESO EN HOME
-   ========================================================= */
-.mobileAuthBox{
-  display:none;
+.quickSteps span{
+  width:31px;
+  height:31px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:var(--green);
+  color:#fff;
+  font-weight:900;
 }
-
-@media(max-width:760px){
-  body:not(.screen-open) .left{
-    min-height:100vh;
-  }
-
-  body:not(.screen-open) .mobileAuthBox{
-    display:block;
-    margin:18px 0 18px;
-    padding:16px;
-    border:1px solid rgba(0,240,122,.35);
-    border-radius:24px;
-    background:linear-gradient(135deg,rgba(0,240,122,.12),rgba(255,255,255,.04));
-    box-shadow:0 18px 40px rgba(0,0,0,.18);
-  }
-
-  .mobileAuthBox b{
-    display:block;
-    color:#fff;
-    font-size:17px;
-    margin-bottom:12px;
-  }
-
-  .mobileAuthInputs{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-bottom:10px;
-  }
-
-  .mobileAuthInputs input{
-    width:100%;
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,.16);
-    background:rgba(0,0,0,.22);
-    color:#fff;
-    padding:12px;
-    font-weight:800;
-  }
-
-  .mobileAuthBox > button{
-    width:100%;
-    min-height:48px;
-    border-radius:17px;
-    border:1px solid rgba(0,240,122,.50);
-    background:linear-gradient(135deg,rgba(0,240,122,.22),rgba(0,90,45,.34));
-    color:#eafff2;
-    font-weight:950;
-  }
-
-  .mobileAuthDemo{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:8px;
-    margin-top:10px;
-  }
-
-  .mobileAuthDemo button{
-    min-height:42px;
-    border-radius:15px;
-    border:1px solid rgba(255,255,255,.14);
-    background:rgba(255,255,255,.055);
-    color:#dfffee;
-    font-weight:900;
-  }
-
-  /* Si por alguna razón el JS tarda, el home no debe quedar vacío */
-  body:not(.screen-open) nav:empty::before{
-    content:"Cargando módulos...";
-    display:block;
-    grid-column:1 / -1;
-    padding:18px;
-    border-radius:18px;
-    color:#dfffee;
-    border:1px solid rgba(0,240,122,.25);
-    background:rgba(0,240,122,.08);
-  }
-
-  body:not(.screen-open) nav{
-    margin-top:14px;
-  }
-
-  body:not(.screen-open) nav button{
-    cursor:pointer;
-  }
+.heroActions{
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
 }
-
-
-
-
-/* =========================================================
-   LIGAPRO F7 V1.5 - ESTILO DEPÓRSTAR / PLATAFORMA CLARA
-   Base funcional estable + diseño claro profesional
-   ========================================================= */
-
-:root{
-  --ds-bg:#dfe9ec;
-  --ds-soft:#eaf8ef;
-  --ds-panel:#ffffff;
-  --ds-green:#20b565;
-  --ds-green2:#16a45a;
-  --ds-orange:#ff9f12;
-  --ds-blue:#1686d9;
-  --ds-text:#26313a;
-  --ds-muted:#5f6c76;
-  --ds-line:#d7e2e7;
-  --ds-shadow:0 8px 22px rgba(27,50,65,.10);
+.primaryCta,.secondaryCta,.orangeCta{
+  border:0;
+  border-radius:7px;
+  padding:13px 22px;
+  font-weight:900;
 }
+.primaryCta{background:var(--green);color:#fff}
+.secondaryCta{background:#ffffff;color:var(--green);border:1px solid var(--line)}
+.orangeCta{background:var(--orange);color:#1f2a33}
 
-body{
-  background:var(--ds-bg)!important;
-  color:var(--ds-text)!important;
-  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+/* Cómo funciona */
+.howSection{
+  background:var(--soft);
+  margin:34px auto 0;
+  padding:56px 70px;
+  display:grid;
+  grid-template-columns:.85fr 1.15fr;
+  gap:56px;
+  align-items:center;
 }
+.howCopy h2{
+  color:var(--green);
+  font-size:28px;
+  line-height:1.12;
+  margin:0 0 18px;
+}
+.howCopy p{
+  color:#36444e;
+  line-height:1.55;
+}
+.featureList{
+  display:grid;
+  gap:14px;
+}
+.featureCard{
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  border-radius:2px;
+  padding:17px 20px;
+  text-align:left;
+  border-left:4px solid var(--green);
+}
+.featureCard b{
+  display:block;
+  color:var(--green);
+  font-size:17px;
+  margin-bottom:4px;
+}
+.featureCard span{
+  color:#40505b;
+  line-height:1.45;
+}
+.featureCard.orange{border-left-color:var(--orange)}
+.featureCard.orange b{color:var(--orange)}
+.featureCard.blue{border-left-color:var(--blue)}
+.featureCard.blue b{color:var(--blue)}
 
-/* Logo */
-.deporLogo{
-  background:transparent!important;
-  border:none!important;
-  box-shadow:none!important;
-  padding:0!important;
-  overflow:visible!important;
+/* Admin section */
+.adminSection{
+  margin-top:34px;
+  background:#f5fbf7;
+  border:1px solid rgba(33,182,106,.12);
+  padding:34px;
 }
-.deporLogo img{
-  width:100%!important;
-  height:100%!important;
-  display:block!important;
-  filter:drop-shadow(0 8px 14px rgba(17,91,52,.18));
+.adminHeader{
+  display:grid;
+  grid-template-columns:1fr minmax(280px,360px);
+  gap:24px;
+  align-items:center;
 }
+.adminHeader small{
+  color:var(--orange);
+  font-weight:900;
+}
+.adminHeader h2{
+  color:var(--green);
+  margin:8px 0;
+  font-size:30px;
+}
+.adminHeader p{color:var(--muted)}
+.roleBox{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  border-left:5px solid var(--green)!important;
+  box-shadow:var(--shadow)!important;
+  border-radius:4px!important;
+  padding:16px!important;
+  color:var(--text)!important;
+}
+.roleBox b{display:block;color:var(--green)!important}
+.roleBox span{display:block;color:var(--text)!important;font-weight:800;margin-top:4px}
+.roleBox small{display:block;color:var(--muted)!important;margin-top:4px}
 
-/* Layout general estilo plataforma */
-.layout{
-  background:transparent!important;
+.moduleGrid{
+  display:grid!important;
+  grid-template-columns:repeat(5,minmax(0,1fr));
+  gap:12px;
+  margin:26px 0;
 }
-.left{
-  background:transparent!important;
-  border:none!important;
-  box-shadow:none!important;
+.moduleGrid button{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow)!important;
+  border-radius:6px!important;
+  min-height:82px!important;
+  padding:14px!important;
+  text-align:left!important;
+  color:var(--text)!important;
 }
-.center{
-  background:transparent!important;
+.moduleGrid button.active{
+  border-color:rgba(33,182,106,.35)!important;
+  background:#effaf4!important;
+}
+.moduleGrid button::before{
+  content:"✓"!important;
+  display:inline-grid!important;
+  place-items:center!important;
+  width:28px!important;
+  height:28px!important;
+  border-radius:50%!important;
+  background:var(--green)!important;
+  color:#fff!important;
+  margin-bottom:8px!important;
+  font-weight:900!important;
+}
+.moduleGrid button span,.moduleGrid button b{
+  display:block;
+  color:var(--text)!important;
+  font-weight:850!important;
+}
+.moduleGrid button small{
+  display:block;
+  color:var(--muted)!important;
+  margin-top:3px;
+}
+.moduleGrid button::after{display:none!important}
+
+.workspace{
+  margin-top:22px;
 }
 .right{
-  background:var(--ds-panel)!important;
-  color:var(--ds-text)!important;
-  border:1px solid var(--ds-line)!important;
-  box-shadow:var(--ds-shadow)!important;
+  background:#fff!important;
+  color:var(--text)!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow)!important;
+  border-radius:6px!important;
+  padding:24px!important;
+  max-height:none!important;
+  overflow:visible!important;
 }
-
-/* Header / Hero */
-.brand{
-  background:transparent!important;
-}
-.brand h1{
-  color:var(--ds-text)!important;
+.sectionLabel{
+  color:var(--orange)!important;
   font-weight:900!important;
-  letter-spacing:-.035em!important;
+  text-transform:none!important;
+  letter-spacing:0!important;
 }
-.brand h1 span{
-  color:var(--ds-green)!important;
+.right h2{
+  color:var(--green)!important;
 }
-.brand b,
-.versionPill{
-  background:rgba(32,181,101,.10)!important;
-  color:var(--ds-green)!important;
-  border:1px solid rgba(32,181,101,.22)!important;
-  border-radius:999px!important;
+.right p{color:var(--muted)!important}
+.grid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
 }
-.notice{
-  color:var(--ds-muted)!important;
-  line-height:1.45!important;
-}
-
-/* Tarjeta sesión similar a cards limpias */
-.roleBox{
-  background:#ffffff!important;
-  color:var(--ds-text)!important;
-  border:1px solid var(--ds-line)!important;
-  box-shadow:var(--ds-shadow)!important;
-  border-radius:14px!important;
-  position:relative!important;
-  overflow:hidden!important;
-}
-.roleBox::before{
-  content:"";
-  position:absolute;
-  left:0;top:0;bottom:0;
-  width:5px;
-  background:var(--ds-green);
-}
-.roleBox b,
-.roleBox span{
-  color:var(--ds-green)!important;
-}
-.roleBox small{
-  color:var(--ds-muted)!important;
-}
-
-/* Menú: cards tipo Deportstar, no fondo oscuro */
-nav button{
-  background:#ffffff!important;
-  color:var(--ds-text)!important;
-  border:1px solid var(--ds-line)!important;
-  box-shadow:var(--ds-shadow)!important;
-  border-radius:14px!important;
-}
-nav button.active{
-  border-color:rgba(32,181,101,.35)!important;
-  background:#f8fffb!important;
-}
-nav button::before{
-  background:var(--ds-green)!important;
-  color:#fff!important;
-  border:none!important;
+.metric{
+  background:#f8fbf9!important;
+  border:1px solid var(--line)!important;
+  border-radius:4px!important;
   box-shadow:none!important;
+  padding:14px!important;
 }
-nav button::after{
-  color:var(--ds-green)!important;
+.metric small{color:var(--muted)!important}
+.metric b{color:var(--green)!important}
+.actions,.btnGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
 }
-nav button span,
-nav button b{
-  color:var(--ds-text)!important;
+.actions button,.btnGrid button,.loginCard button{
+  background:var(--green)!important;
+  border:1px solid var(--green)!important;
+  color:#fff!important;
+  border-radius:7px!important;
+  font-weight:900!important;
+  min-height:42px!important;
 }
-nav button small{
-  color:var(--ds-muted)!important;
+.actions button:nth-child(even),.btnGrid button:nth-child(even){
+  background:var(--orange)!important;
+  border-color:var(--orange)!important;
+  color:#1d2a32!important;
 }
+.row,.formBox,.bulkBox,.bulkResult{
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  box-shadow:var(--shadow)!important;
+  color:var(--text)!important;
+  border-radius:4px!important;
+}
+.row b,.formBox h3{color:var(--green)!important}
+.row small,.formBox label{color:var(--muted)!important}
+.pill{background:rgba(33,182,106,.10)!important;color:var(--green)!important;border:1px solid rgba(33,182,106,.22)!important}
 
-/* Íconos estables en forma de iniciales */
-nav button[data-module="inicio"]::before{content:"✓"!important;}
-nav button[data-module="pwa"]::before{content:"APP"!important;font-size:10px!important;}
-nav button[data-module="celular"]::before{content:"📱"!important;font-size:18px!important;}
-nav button[data-module="demo"]::before{content:"▶"!important;}
-nav button[data-module="masiva"]::before{content:"XLS"!important;font-size:10px!important;}
-nav button[data-module="carga"]::before{content:"+"!important;}
-nav button[data-module="equipos"]::before{content:"EQ"!important;font-size:10px!important;}
-nav button[data-module="jugadores"]::before{content:"JG"!important;font-size:10px!important;}
-nav button[data-module="calendario"]::before{content:"FX"!important;font-size:10px!important;}
-nav button[data-module="resultados"]::before{content:"RS"!important;font-size:10px!important;}
-nav button[data-module="tabla"]::before{content:"TB"!important;font-size:10px!important;}
-nav button[data-module="pagos"]::before{content:"$"!important;}
-nav button[data-module="reportes"]::before{content:"PDF"!important;font-size:9px!important;}
-nav button[data-module="qr"]::before{content:"QR"!important;font-size:10px!important;}
-
-/* Botones principales */
-button,
-.actions button,
-.btnGrid button,
-.loginCard button{
-  border-radius:10px!important;
+/* Login modal */
+.loginOverlay{
+  display:none;
+  position:fixed;
+  inset:0;
+  z-index:100;
+  background:rgba(31,42,51,.32);
+  backdrop-filter:blur(6px);
+  place-items:center;
+  padding:18px;
 }
-.actions button,
-.btnGrid button,
-.loginCard button{
-  background:var(--ds-green)!important;
-  border:1px solid var(--ds-green)!important;
-  color:#ffffff!important;
-  box-shadow:0 4px 12px rgba(32,181,101,.18)!important;
-}
-.actions button:nth-child(2n),
-.btnGrid button:nth-child(2n){
-  background:var(--ds-orange)!important;
-  border-color:var(--ds-orange)!important;
-}
-
-/* Contenido de pantallas */
-.metric,
-.row,
-.formBox,
+body.login-open .loginOverlay{display:grid}
+body:not(.login-open) #loginCard{display:none!important}
 .loginCard{
-  background:#ffffff!important;
-  border:1px solid var(--ds-line)!important;
-  color:var(--ds-text)!important;
-  box-shadow:var(--ds-shadow)!important;
+  position:relative!important;
+  inset:auto!important;
+  width:min(430px,94vw)!important;
+  background:#fff!important;
+  border:1px solid var(--line)!important;
+  box-shadow:0 22px 70px rgba(26,45,58,.22)!important;
+  border-radius:12px!important;
+  padding:24px!important;
+  color:var(--text)!important;
 }
-.metric b{
-  color:var(--ds-green)!important;
+.loginCard img{
+  width:68px;
+  height:68px;
+  display:block;
+  margin:0 auto 8px;
 }
-.row b{
-  color:var(--ds-green)!important;
+.loginCard h2{
+  color:var(--green)!important;
+  text-align:center!important;
+  margin:8px 0!important;
 }
-.row small,
-.right p,
-.formBox label{
-  color:var(--ds-muted)!important;
+.loginCard p{text-align:center;color:var(--muted);margin:0 0 16px}
+.loginCard input{
+  width:100%;
+  border:1px solid var(--line)!important;
+  background:#f7faf8!important;
+  color:var(--text)!important;
+  border-radius:7px!important;
+  min-height:42px!important;
+  padding:0 12px!important;
+  margin:6px 0!important;
 }
-.pill{
-  background:rgba(32,181,101,.10)!important;
-  color:var(--ds-green)!important;
+.closeLogin{
+  position:absolute;
+  right:10px;
+  top:10px;
+  width:32px;
+  height:32px;
+  border-radius:50%;
+  border:0;
+  background:#eef3f5;
+  color:var(--muted);
+  font-size:20px;
+}
+.mini{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+
+.guideSection{
+  margin-top:34px;
+  padding:34px;
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+}
+.guideSection h2{color:var(--green)}
+.guideGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:12px;
+}
+.guideGrid div{
+  background:#f5fbf7;
+  border:1px solid var(--line);
+  padding:15px;
+  border-radius:4px;
+}
+.guideGrid b{
+  display:inline-grid;
+  place-items:center;
+  width:30px;
+  height:30px;
+  background:var(--green);
+  color:#fff;
+  border-radius:50%;
+  margin-right:8px;
 }
 
-/* Pantallas independientes conservadas */
-.mobileScreenBar{
-  background:#ffffff!important;
-  color:var(--ds-text)!important;
-  border-bottom:1px solid var(--ds-line)!important;
-  box-shadow:0 4px 12px rgba(27,50,65,.07)!important;
-}
-.mobileScreenBar button{
-  background:var(--ds-green)!important;
-  color:#ffffff!important;
-  border:1px solid var(--ds-green)!important;
-}
-.mobileScreenBar strong{
-  color:var(--ds-text)!important;
-}
-.mobileScreenBar span{
-  color:var(--ds-green)!important;
-}
-
-/* Desktop: más parecido al sitio de referencia */
-@media(min-width:900px){
-  body{
-    background:var(--ds-bg)!important;
+/* Mobile */
+@media(max-width:900px){
+  .publicMenu{display:none}
+  .deporPage{padding:22px 14px 70px}
+  .heroSection,.howSection,.adminHeader{
+    grid-template-columns:1fr;
+    gap:24px;
   }
-  .layout{
-    max-width:1280px!important;
-    margin:0 auto!important;
-    padding-top:34px!important;
+  .heroVisual{
+    min-height:230px;
+    order:2;
   }
-  .left{
-    padding:22px!important;
+  .heroCopy{
+    order:1;
   }
-  .brand{
-    display:grid!important;
-    grid-template-columns:110px 1fr!important;
-    gap:18px!important;
-    align-items:center!important;
-  }
-  .mark{
-    width:110px!important;
-    height:110px!important;
-  }
-  .brand h1{
-    font-size:34px!important;
-  }
-  .notice{
-    max-width:620px!important;
-    font-size:16px!important;
-  }
-  nav{
-    display:grid!important;
-    grid-template-columns:repeat(2,minmax(0,1fr))!important;
-    gap:12px!important;
-  }
-  nav button{
-    min-height:76px!important;
-    padding:14px 16px 14px 62px!important;
-    text-align:left!important;
-  }
-  nav button::before{
-    width:34px!important;
-    height:34px!important;
-    border-radius:50%!important;
-    left:16px!important;
-  }
+  .heroCopy h1{font-size:30px}
+  .heroCircle{width:190px;height:190px;border-width:6px}
+  .personBadge{width:120px;height:120px;border-radius:30px;font-size:48px}
+  .phoneMockup{left:4%;top:24px;transform:rotate(-6deg) scale(.8)}
+  .floatingCard{display:none}
+  .quickSteps{grid-template-columns:1fr}
+  .howSection{padding:28px 18px}
+  .moduleGrid{grid-template-columns:1fr 1fr}
+  .grid{grid-template-columns:1fr 1fr}
+  .actions,.btnGrid{grid-template-columns:1fr 1fr}
+  .guideGrid{grid-template-columns:1fr 1fr}
+  .adminSection{padding:18px}
 }
 
-/* Mobile: landing claro y limpio */
-@media(max-width:760px){
-  body{
-    background:var(--ds-bg)!important;
-  }
-  body:not(.screen-open) .left{
-    padding:20px 18px 96px!important;
-    min-height:100vh!important;
-  }
-  .brand{
-    align-items:center!important;
-  }
-  .brand h1{
-    color:var(--ds-text)!important;
-  }
-  .notice{
-    color:var(--ds-muted)!important;
-  }
-  body:not(.screen-open) nav{
-    display:grid!important;
-    grid-template-columns:1fr 1fr!important;
-    gap:12px!important;
-  }
-  body:not(.screen-open) nav button{
-    min-height:98px!important;
-    border-radius:14px!important;
-    padding:42px 12px 12px 14px!important;
-  }
-  body:not(.screen-open) nav button::before{
-    width:32px!important;
-    height:32px!important;
-    border-radius:50%!important;
-    left:14px!important;
-    top:12px!important;
-    display:flex!important;
-    align-items:center!important;
-    justify-content:center!important;
-  }
-  body.screen-open .right{
-    background:var(--ds-bg)!important;
-    color:var(--ds-text)!important;
-  }
+@media(max-width:520px){
+  .publicTopbar{height:58px;padding:0 12px}
+  .publicBrand strong{font-size:20px}
+  .topLoginBtn{padding:10px 14px}
+  .moduleGrid{grid-template-columns:1fr}
+  .actions,.btnGrid,.grid,.guideGrid{grid-template-columns:1fr}
 }
