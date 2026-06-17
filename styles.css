@@ -981,173 +981,315 @@ nav button.active{
 }
 
 
+
+
 /* =========================================================
-   LIGAPRO F7 V1.4 LANZAMIENTO ESTABLE
-   Diseño final seguro sobre base funcional V1.2.1
+   LIGAPRO F7 V1.5 - ESTILO DEPÓRSTAR / PLATAFORMA CLARA
+   Base funcional estable + diseño claro profesional
    ========================================================= */
 
 :root{
-  --lf-bg:#020705;
-  --lf-panel:#061a12;
-  --lf-panel2:#0b2a1d;
-  --lf-green:#11f083;
-  --lf-green2:#00b965;
-  --lf-gold:#f2c45b;
-  --lf-text:#f8fff9;
-  --lf-muted:#b9c8c1;
-  --lf-line:rgba(17,240,131,.32);
-  --lf-shadow:0 18px 46px rgba(0,0,0,.42), inset 0 1px 0 rgba(255,255,255,.05);
+  --ds-bg:#dfe9ec;
+  --ds-soft:#eaf8ef;
+  --ds-panel:#ffffff;
+  --ds-green:#20b565;
+  --ds-green2:#16a45a;
+  --ds-orange:#ff9f12;
+  --ds-blue:#1686d9;
+  --ds-text:#26313a;
+  --ds-muted:#5f6c76;
+  --ds-line:#d7e2e7;
+  --ds-shadow:0 8px 22px rgba(27,50,65,.10);
 }
 
-.finalLogo{
+body{
+  background:var(--ds-bg)!important;
+  color:var(--ds-text)!important;
+  font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif!important;
+}
+
+/* Logo */
+.deporLogo{
   background:transparent!important;
-  border:0!important;
+  border:none!important;
   box-shadow:none!important;
   padding:0!important;
   overflow:visible!important;
 }
-.finalLogo img{
+.deporLogo img{
   width:100%!important;
   height:100%!important;
   display:block!important;
-  filter:drop-shadow(0 14px 22px rgba(0,0,0,.50)) drop-shadow(0 0 14px rgba(17,240,131,.22));
+  filter:drop-shadow(0 8px 14px rgba(17,91,52,.18));
 }
 
-body{
-  background:
-    radial-gradient(circle at 86% 4%, rgba(17,240,131,.20), transparent 28%),
-    radial-gradient(circle at 16% 0%, rgba(242,196,91,.10), transparent 18%),
-    linear-gradient(180deg,#020705 0%,#04140d 42%,#010302 100%)!important;
+/* Layout general estilo plataforma */
+.layout{
+  background:transparent!important;
 }
-
 .left{
-  background:
-    radial-gradient(circle at 80% 0%, rgba(17,240,131,.12), transparent 35%),
-    linear-gradient(160deg, rgba(5,25,17,.96), rgba(1,8,5,.96))!important;
+  background:transparent!important;
+  border:none!important;
+  box-shadow:none!important;
+}
+.center{
+  background:transparent!important;
+}
+.right{
+  background:var(--ds-panel)!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-line)!important;
+  box-shadow:var(--ds-shadow)!important;
 }
 
+/* Header / Hero */
+.brand{
+  background:transparent!important;
+}
 .brand h1{
-  font-weight:950!important;
-  letter-spacing:-.045em!important;
+  color:var(--ds-text)!important;
+  font-weight:900!important;
+  letter-spacing:-.035em!important;
 }
-.brand h1 span{color:var(--lf-green)!important;}
-.notice{color:rgba(245,255,249,.84)!important;}
+.brand h1 span{
+  color:var(--ds-green)!important;
+}
+.brand b,
+.versionPill{
+  background:rgba(32,181,101,.10)!important;
+  color:var(--ds-green)!important;
+  border:1px solid rgba(32,181,101,.22)!important;
+  border-radius:999px!important;
+}
+.notice{
+  color:var(--ds-muted)!important;
+  line-height:1.45!important;
+}
 
+/* Tarjeta sesión similar a cards limpias */
 .roleBox{
-  border-radius:24px!important;
-  border:1px solid rgba(17,240,131,.34)!important;
-  background:
-    radial-gradient(circle at 15% 20%, rgba(17,240,131,.13), transparent 28%),
-    linear-gradient(135deg, rgba(7,31,22,.96), rgba(2,13,9,.94))!important;
-  box-shadow:var(--lf-shadow)!important;
+  background:#ffffff!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-line)!important;
+  box-shadow:var(--ds-shadow)!important;
+  border-radius:14px!important;
+  position:relative!important;
+  overflow:hidden!important;
+}
+.roleBox::before{
+  content:"";
+  position:absolute;
+  left:0;top:0;bottom:0;
+  width:5px;
+  background:var(--ds-green);
+}
+.roleBox b,
+.roleBox span{
+  color:var(--ds-green)!important;
+}
+.roleBox small{
+  color:var(--ds-muted)!important;
 }
 
-/* Botones finales: limpios, uniformes, sin emojis improvisados */
+/* Menú: cards tipo Deportstar, no fondo oscuro */
 nav button{
-  background:
-    radial-gradient(circle at 12% 12%, rgba(17,240,131,.15), transparent 30%),
-    linear-gradient(145deg, rgba(10,35,26,.95), rgba(3,16,12,.96))!important;
-  border:1px solid rgba(17,240,131,.30)!important;
-  box-shadow:var(--lf-shadow)!important;
-  color:#fff!important;
-  transition:transform .12s ease, border-color .12s ease!important;
+  background:#ffffff!important;
+  color:var(--ds-text)!important;
+  border:1px solid var(--ds-line)!important;
+  box-shadow:var(--ds-shadow)!important;
+  border-radius:14px!important;
 }
-nav button:active{transform:scale(.985)!important;}
 nav button.active{
-  border-color:rgba(242,196,91,.42)!important;
-  background:
-    radial-gradient(circle at 12% 12%, rgba(17,240,131,.22), transparent 34%),
-    linear-gradient(145deg, rgba(12,49,35,.98), rgba(3,16,12,.96))!important;
+  border-color:rgba(32,181,101,.35)!important;
+  background:#f8fffb!important;
 }
-
-/* Iconos tipo insignia: texto corto profesional, estable en todos los celulares */
 nav button::before{
-  color:var(--lf-green)!important;
-  font-weight:950!important;
-  font-size:12px!important;
-  letter-spacing:.04em!important;
-  border:1px solid rgba(17,240,131,.35)!important;
-  background:radial-gradient(circle at 35% 25%, rgba(17,240,131,.28), rgba(1,12,7,.45))!important;
-  box-shadow:inset 0 0 16px rgba(17,240,131,.10), 0 10px 24px rgba(0,0,0,.30)!important;
+  background:var(--ds-green)!important;
+  color:#fff!important;
+  border:none!important;
+  box-shadow:none!important;
 }
-nav button[data-module="inicio"]::before{content:"IN"!important;}
-nav button[data-module="pwa"]::before{content:"APP"!important;}
-nav button[data-module="celular"]::before{content:"CEL"!important;}
-nav button[data-module="demo"]::before{content:"DEMO"!important;}
-nav button[data-module="masiva"]::before{content:"XLS"!important;}
-nav button[data-module="carga"]::before{content:"CAP"!important;}
-nav button[data-module="equipos"]::before{content:"EQ"!important;}
-nav button[data-module="jugadores"]::before{content:"JG"!important;}
-nav button[data-module="calendario"]::before{content:"CAL"!important;}
-nav button[data-module="resultados"]::before{content:"RES"!important;}
-nav button[data-module="tabla"]::before{content:"TAB"!important;}
-nav button[data-module="pagos"]::before{content:"PAG"!important;}
-nav button[data-module="reportes"]::before{content:"REP"!important;}
-nav button[data-module="qr"]::before{content:"QR"!important;}
-
 nav button::after{
-  color:var(--lf-gold)!important;
-  font-size:28px!important;
+  color:var(--ds-green)!important;
+}
+nav button span,
+nav button b{
+  color:var(--ds-text)!important;
+}
+nav button small{
+  color:var(--ds-muted)!important;
 }
 
+/* Íconos estables en forma de iniciales */
+nav button[data-module="inicio"]::before{content:"✓"!important;}
+nav button[data-module="pwa"]::before{content:"APP"!important;font-size:10px!important;}
+nav button[data-module="celular"]::before{content:"📱"!important;font-size:18px!important;}
+nav button[data-module="demo"]::before{content:"▶"!important;}
+nav button[data-module="masiva"]::before{content:"XLS"!important;font-size:10px!important;}
+nav button[data-module="carga"]::before{content:"+"!important;}
+nav button[data-module="equipos"]::before{content:"EQ"!important;font-size:10px!important;}
+nav button[data-module="jugadores"]::before{content:"JG"!important;font-size:10px!important;}
+nav button[data-module="calendario"]::before{content:"FX"!important;font-size:10px!important;}
+nav button[data-module="resultados"]::before{content:"RS"!important;font-size:10px!important;}
+nav button[data-module="tabla"]::before{content:"TB"!important;font-size:10px!important;}
+nav button[data-module="pagos"]::before{content:"$"!important;}
+nav button[data-module="reportes"]::before{content:"PDF"!important;font-size:9px!important;}
+nav button[data-module="qr"]::before{content:"QR"!important;font-size:10px!important;}
+
+/* Botones principales */
+button,
+.actions button,
+.btnGrid button,
+.loginCard button{
+  border-radius:10px!important;
+}
+.actions button,
+.btnGrid button,
+.loginCard button{
+  background:var(--ds-green)!important;
+  border:1px solid var(--ds-green)!important;
+  color:#ffffff!important;
+  box-shadow:0 4px 12px rgba(32,181,101,.18)!important;
+}
+.actions button:nth-child(2n),
+.btnGrid button:nth-child(2n){
+  background:var(--ds-orange)!important;
+  border-color:var(--ds-orange)!important;
+}
+
+/* Contenido de pantallas */
+.metric,
+.row,
+.formBox,
+.loginCard{
+  background:#ffffff!important;
+  border:1px solid var(--ds-line)!important;
+  color:var(--ds-text)!important;
+  box-shadow:var(--ds-shadow)!important;
+}
+.metric b{
+  color:var(--ds-green)!important;
+}
+.row b{
+  color:var(--ds-green)!important;
+}
+.row small,
+.right p,
+.formBox label{
+  color:var(--ds-muted)!important;
+}
+.pill{
+  background:rgba(32,181,101,.10)!important;
+  color:var(--ds-green)!important;
+}
+
+/* Pantallas independientes conservadas */
 .mobileScreenBar{
-  background:rgba(2,10,7,.96)!important;
-  border-bottom:1px solid rgba(17,240,131,.22)!important;
+  background:#ffffff!important;
+  color:var(--ds-text)!important;
+  border-bottom:1px solid var(--ds-line)!important;
+  box-shadow:0 4px 12px rgba(27,50,65,.07)!important;
 }
 .mobileScreenBar button{
-  color:var(--lf-gold)!important;
-  border-color:rgba(242,196,91,.42)!important;
-  background:rgba(242,196,91,.07)!important;
+  background:var(--ds-green)!important;
+  color:#ffffff!important;
+  border:1px solid var(--ds-green)!important;
+}
+.mobileScreenBar strong{
+  color:var(--ds-text)!important;
+}
+.mobileScreenBar span{
+  color:var(--ds-green)!important;
 }
 
-.right{
-  background:
-    radial-gradient(circle at 85% 0%, rgba(17,240,131,.14), transparent 30%),
-    linear-gradient(180deg,#04140d,#010403)!important;
-}
-.metric,.row,.formBox{
-  border-color:rgba(17,240,131,.25)!important;
-  background:
-    radial-gradient(circle at 10% 12%, rgba(17,240,131,.12), transparent 28%),
-    linear-gradient(145deg, rgba(10,34,25,.94), rgba(3,14,10,.95))!important;
-  box-shadow:var(--lf-shadow)!important;
-}
-.actions button,.btnGrid button,.loginCard button{
-  background:linear-gradient(135deg, rgba(17,240,131,.16), rgba(3,70,38,.32))!important;
-  border-color:rgba(17,240,131,.32)!important;
+/* Desktop: más parecido al sitio de referencia */
+@media(min-width:900px){
+  body{
+    background:var(--ds-bg)!important;
+  }
+  .layout{
+    max-width:1280px!important;
+    margin:0 auto!important;
+    padding-top:34px!important;
+  }
+  .left{
+    padding:22px!important;
+  }
+  .brand{
+    display:grid!important;
+    grid-template-columns:110px 1fr!important;
+    gap:18px!important;
+    align-items:center!important;
+  }
+  .mark{
+    width:110px!important;
+    height:110px!important;
+  }
+  .brand h1{
+    font-size:34px!important;
+  }
+  .notice{
+    max-width:620px!important;
+    font-size:16px!important;
+  }
+  nav{
+    display:grid!important;
+    grid-template-columns:repeat(2,minmax(0,1fr))!important;
+    gap:12px!important;
+  }
+  nav button{
+    min-height:76px!important;
+    padding:14px 16px 14px 62px!important;
+    text-align:left!important;
+  }
+  nav button::before{
+    width:34px!important;
+    height:34px!important;
+    border-radius:50%!important;
+    left:16px!important;
+  }
 }
 
+/* Mobile: landing claro y limpio */
 @media(max-width:760px){
+  body{
+    background:var(--ds-bg)!important;
+  }
   body:not(.screen-open) .left{
-    padding-bottom:96px!important;
+    padding:20px 18px 96px!important;
+    min-height:100vh!important;
+  }
+  .brand{
+    align-items:center!important;
+  }
+  .brand h1{
+    color:var(--ds-text)!important;
+  }
+  .notice{
+    color:var(--ds-muted)!important;
   }
   body:not(.screen-open) nav{
     display:grid!important;
     grid-template-columns:1fr 1fr!important;
-    gap:13px!important;
+    gap:12px!important;
   }
   body:not(.screen-open) nav button{
-    min-height:104px!important;
-    border-radius:24px!important;
-    padding:44px 12px 12px 14px!important;
-  }
-  body:not(.screen-open) nav button span,
-  body:not(.screen-open) nav button b{
-    font-size:18px!important;
-    font-weight:930!important;
-  }
-  body:not(.screen-open) nav button small{
-    color:rgba(230,244,236,.76)!important;
-    font-size:12px!important;
+    min-height:98px!important;
+    border-radius:14px!important;
+    padding:42px 12px 12px 14px!important;
   }
   body:not(.screen-open) nav button::before{
-    width:34px!important;
-    height:34px!important;
-    border-radius:13px!important;
+    width:32px!important;
+    height:32px!important;
+    border-radius:50%!important;
     left:14px!important;
-    top:14px!important;
+    top:12px!important;
     display:flex!important;
     align-items:center!important;
     justify-content:center!important;
+  }
+  body.screen-open .right{
+    background:var(--ds-bg)!important;
+    color:var(--ds-text)!important;
   }
 }

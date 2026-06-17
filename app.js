@@ -99,7 +99,7 @@ function render(){
  let rows=[],title="Carga masiva",desc="Administración profesional del torneo en tiempo real.";
  if(module==="inicio"){
    title="Inicio LigaPro F7";
-   desc="Menú principal. Toca un módulo para abrir una pantalla independiente tipo app.";
+   desc="Crea torneos, registra equipos, genera partidos y administra resultados desde una sola plataforma.";
    rows=[
     ["Centro de mando","Control de equipos, jugadores, calendario, pagos y reportes desde una sola app."],
     ["Pantallas reales","Cada módulo se abre como pantalla completa con botón para regresar."],
@@ -436,7 +436,7 @@ async function showMobileInfo(){
 
 
 
-/* ===== V1.4 LANZAMIENTO Instalación ===== */
+/* ===== V1.5 ESTILO DEPORSTAR Instalación ===== */
 let deferredPwaPrompt = null;
 
 function isStandalonePWA(){
