@@ -10,31 +10,23 @@ let module="inicio";
 let mobileScreenOpen=false;
 
 const modules=[
- ["inicio","Inicio","assets/inicio.png","Vista general","home"],
- ["equipos","Equipos","assets/equipos.png","Gestionar equipos","teams"],
- ["jugadores","Jugadores","assets/jugadores.png","Gestionar jugadores","players"],
- ["calendario","Calendario","assets/calendario.png","Programar partidos","calendar"],
- ["resultados","Resultados","assets/resultados.png","Ver resultados","results"],
- ["tabla","Tabla","assets/estadisticas.png","Posiciones","table"],
- ["pagos","Pagos","assets/pagos.png","Gestión de pagos","payments"],
- ["reportes","Reportes","assets/estadisticas.png","Informes y análisis","reports"],
- ["masiva","Carga masiva","assets/estadisticas.png","Importar datos","upload"],
- ["qr","QR / Credenciales","assets/jugadores.png","Escanear y validar","qr"],
- ["pwa","Instalar app","assets/inicio.png","Descargar app","install"],
- ["demo","Modo demo","assets/inicio.png","Explorar demo","demo"]
+ ["inicio","Inicio","assets/inicio.png"],
+ ["pwa","Instalar app","assets/inicio.png"],
+ ["celular","Celular","assets/inicio.png"],
+ ["demo","Modo demo","assets/estadisticas.png"],
+ ["masiva","Carga Excel","assets/estadisticas.png"],
+ ["carga","Captura manual","assets/equipos.png"],
+ ["equipos","Equipos","assets/equipos.png"],
+ ["jugadores","Jugadores","assets/registro_qr.png"],
+ ["calendario","Calendario","assets/calendario.png"],
+ ["resultados","Resultados","assets/resultados.png"],
+ ["tabla","Tabla","assets/tabla.png"],
+ ["pagos","Pagos","assets/pagos.png"],
+ ["reportes","Reportes","assets/estadisticas.png"],
+ ["tv","LigaPro TV","assets/tv.png"]
 ];
 
 function $(id){return document.getElementById(id)}
-
-function moduleIcon(key){
- const map={
-  home:"⌂", teams:"🛡", players:"●", calendar:"▦", results:"♛", table:"▥",
-  payments:"▰", reports:"▤", upload:"☁", qr:"▦", install:"▯", demo:"🎮",
-  inicio:"⌂", equipos:"🛡", jugadores:"●", calendario:"▦", resultados:"♛",
-  tabla:"▥", pagos:"▰", reportes:"▤", masiva:"☁"
- };
- return map[key]||"›";
-}
 function isMobileAppView(){return window.matchMedia && window.matchMedia("(max-width:760px)").matches}
 function updateMobileShell(){
  const isOpen = isMobileAppView() && mobileScreenOpen;
@@ -82,18 +74,99 @@ function loginMobileManual(){
  if($("pin")) $("pin").value=p;
  loginManual();
 }
-function renderNav(){
- const nav=$("nav");
- if(!nav) return;
- nav.innerHTML=modules.map(m=>{
-   const icon=moduleIcon(m[4]||m[0]);
-   return `<button class="premiumNavCard ${module===m[0]?'active':''}" data-module="${m[0]}">
-     <span class="navIcon">${icon}</span>
-     <span class="navText"><b>${m[1]}</b><small>${m[3]||'Abrir pantalla'}</small></span>
-     <span class="navArrow">›</span>
-   </button>`;
- }).join("");
- nav.querySelectorAll("button").forEach(b=>b.addEventListener("click",()=>setModule(b.dataset.module)));
+function renderNav(){ $("nav").innerHTML=modules.map(m=>`<button class="${module===m[0]?'active':''}" data-module="${m[0]}"><span>${m[1]}</span><small>Abrir pantalla</small></button>`).join("")}
+function teamName(id){return (data.teams||[]).find(t=>t.id===id)?.name||id}
+function playerName(id){return (data.players||[]).find(p=>p.id===id)?.name||id}
+function activeTournament(){return data.tournaments?.[0]?.id||"TOR-REAL"}
+function activeSeason(){return data.seasons?.[0]?.id||"TEMP-REAL"}
+function activeCategory(){return data.categories?.[0]?.id||"CAT-REAL"}
+function slugId(prefix, text){return prefix+"-"+String(text||"REAL").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"").substring(0,8).toUpperCase()+"-"+String(Date.now()).slice(-4)}
+
+function render(){
+ if(!data)return;
+ document.body.dataset.module=module;
+ updateMobileShell();
+ renderNav();
+ $("loginCard").style.display=currentUser?"none":"block";
+ $("roleBox").innerHTML=currentUser?`Sesión: ${currentUser.name}<br><small>${currentUser.role}</small>`:"Sin sesión";
+ const mobileAuth=$("mobileAuthBox"); if(mobileAuth) mobileAuth.style.display=currentUser?"none":"block";
+ const s=data.summary||{};
+ $("kTeams").textContent=s.equiposActivos||0;
+ $("kPlayers").textContent=s.jugadoresRegistrados||0;
+ $("kIncome").textContent=money(s.ingresosTotales||0);
+ $("kPending").textContent=money(s.pagosPendientes||0);
+
+ let rows=[],title="Carga masiva",desc="Administración profesional del torneo en tiempo real.";
+ if(module==="inicio"){
+   title="Inicio LigaPro F7";
+   desc="Menú principal. Toca un módulo para abrir una pantalla independiente tipo app.";
+   rows=[
+    ["Centro de mando","Control de equipos, jugadores, calendario, pagos y reportes desde una sola app."],
+    ["Pantallas reales","Cada módulo se abre como pantalla completa con botón para regresar."],
+    ["Datos del torneo","Consulta tabla, resultados, pagos pendientes y reportes ejecutivos."],
+    ["Listo para presentar","Versión comercial para equipos, árbitros, patrocinadores y directores."]
+   ];
+ }
+ if(module==="masiva"){
+   title="Carga masiva · Excel/CSV";
+   desc="Pega CSV, carga archivo CSV, valida e importa.";
+   rows=[
+    ["1. Descargar plantilla","Usa el botón Descargar plantilla."],
+    ["2. Pegar o cargar CSV","Puedes pegar texto CSV o seleccionar archivo .csv."],
+    ["3. Validar CSV","Revisa errores antes de importar."],
+    ["4. Importar CSV","Guarda los registros en la base."]
+   ];
+ }
+
+
+ if(module==="pwa"){
+   title="Instalar como app";
+   desc="PWA instalable con ícono y pantalla completa.";
+   rows=[
+    ["Android","Abre la URL HTTPS, toca Instalar o Agregar a pantalla principal."],
+    ["iPhone","En Safari, toca Compartir y Agregar a pantalla de inicio."],
+    ["Local","En red local puedes probarla; para instalación completa se recomienda HTTPS."],
+    ["Siguiente","Publicar en internet para instalarla como app formal."]
+   ];
+ }
+
+ if(module==="celular"){
+   title="Abrir en celular";
+   desc="Muestra la app en un teléfono dentro de la misma red WiFi.";
+   rows=[
+    ["Paso 1","Deja abierta esta app en la computadora."],
+    ["Paso 2","Conecta el celular al mismo WiFi."],
+    ["Paso 3","Abre /celular o usa el QR de acceso."],
+    ["Importante","No uses 127.0.0.1 en el celular; usa la IP de la computadora."]
+   ];
+ }
+ if(module==="demo"){
+   title="Modo demo presentable";
+   desc="Herramientas para enseñar la app de forma seria.";
+   rows=[
+    ["Cargar demo presentable","Restaura datos de ejemplo limpios y profesionales."],
+    ["Backup","Descarga un respaldo antes y después de pruebas."],
+    ["QR jugador","Muestra credencial/validación de jugador."],
+    ["Celular","Abre la pantalla /celular para compartir en la red local."]
+   ];
+ }
+
+ if(module==="carga"){
+   title="Captura operativa individual";
+   rows=[["Configurar torneo","Captura torneo, temporada y categoría"],["Agregar equipo","Alta individual"],["Agregar jugador","Alta individual"],["Agregar partido","Calendario individual"]];
+ }
+ if(module==="equipos"){title="Equipos";rows=(data.teams||[]).map(t=>[t.name,`${t.director||""} · ${t.status} · ${t.pts||0} pts`])}
+ if(module==="jugadores"){title="Jugadores";rows=(data.players||[]).map(p=>[p.name,`#${p.number||0} · ${p.position||""} · ${teamName(p.teamId)}`])}
+ if(module==="calendario"){title="Calendario";rows=(data.matches||[]).map(m=>[`${teamName(m.localId)} vs ${teamName(m.visitorId)}`,`${m.round} · ${m.date} · ${m.time} · ${m.status}`])}
+ if(module==="resultados"){title="Resultados";rows=(data.matches||[]).map(m=>[`${teamName(m.localId)} ${m.localScore}-${m.visitorScore} ${teamName(m.visitorId)}`,m.status])}
+ if(module==="tabla"){title="Tabla general";rows=[...(data.teams||[])].sort((a,b)=>(b.pts||0)-(a.pts||0)).map((t,i)=>[`${i+1}. ${t.name}`,`PTS ${t.pts||0} · PJ ${t.pj||0} · GF ${t.gf||0} · GC ${t.gc||0}`])}
+ if(module==="pagos"){title="Pagos";rows=(data.payments||[]).map(p=>[teamName(p.teamId),`${p.concept} · ${money(p.amount)} · ${p.status}`])}
+ if(module==="reportes"){title="Reportes";rows=[["Dashboard","/dashboard"],["Checklist","/checklist"],["XLSX","/api/reports/enterprise.xlsx"],["PDF","/api/reports/enterprise.pdf"],["Backup","/api/backup/full"],["Plantilla","/api/templates/carga-masiva.csv"]]}
+ if(module==="tv"){title="LigaPro TV";rows=(data.matches||[]).map(m=>[`${teamName(m.localId)} vs ${teamName(m.visitorId)}`,m.youtube||"Sin enlace YouTube"])}
+ $("moduleTitle").textContent=title;
+ $("moduleDesc").textContent=desc;
+ $("content").innerHTML=rows.map(r=>`<div class="row"><div><b>${r[0]}</b><small>${r[1]}</small></div><span class="pill">OK</span></div>`).join("");
+ renderBulkPanel();
 }
 
 function renderBulkPanel(){
@@ -423,7 +496,6 @@ function renderFallbackHome(){
    updateMobileShell();
    renderNav();
    const mobileAuth=$("mobileAuthBox"); if(mobileAuth) mobileAuth.style.display=currentUser?"none":"block";
- const rb=$("roleBox"); if(rb){rb.innerHTML=currentUser?`<div class="sessionIcon">●</div><div><span>Sesión activa</span><b>Administrador LigaPro</b><small>${currentUser.username||"admin"}@ligapro.com</small></div><em>En línea</em><i>›</i>`:`<div class="sessionIcon">●</div><div><span>Sin sesión</span><b>Acceso requerido</b><small>Ingresa para administrar el torneo</small></div><i>›</i>`;}
  }catch(e){ console.warn("Fallback home error", e); }
 }
 window.addEventListener("DOMContentLoaded", () => setTimeout(renderFallbackHome, 300));
