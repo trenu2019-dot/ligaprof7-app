@@ -3,27 +3,27 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>LigaPro F7 V1.6</title>
+<title>LigaPro F7 V1.7</title>
 <link rel="manifest" href="/manifest.webmanifest"/>
 <meta name="theme-color" content="#20b565"/>
 <meta name="mobile-web-app-capable" content="yes"/>
 <meta name="apple-mobile-web-app-capable" content="yes"/>
-<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
 <meta name="apple-mobile-web-app-title" content="LigaPro F7"/>
 <link rel="apple-touch-icon" href="/assets/icons/icon-192.png"/>
-<link rel="stylesheet" href="/styles.css?v=1600"/>
+<link rel="stylesheet" href="/styles.css?v=1700"/>
 </head>
-<body class="ux-deporstar">
+<body class="ux-deporstar v17">
 <div id="toast" class="toast"></div>
 
 <header class="publicTopbar">
-  <a class="publicBrand" href="/" onclick="goLanding(event)">
+  <a class="publicBrand" href="#explorar" onclick="goLanding(event)">
     <img src="/assets/ligapro-f7-plataforma.svg" alt="LigaPro F7"/>
     <strong>LigaPro F7</strong>
   </a>
   <nav class="publicMenu">
     <a href="#explorar">Explorar</a>
     <a href="#fixture">Fixture</a>
+    <a href="#torneos">Torneos</a>
     <a href="#comunidad">Comunidad</a>
     <a href="#guias">Guías</a>
   </nav>
@@ -34,64 +34,91 @@
   <section id="explorar" class="heroSection">
     <div class="heroVisual">
       <div class="heroCircle"></div>
+      <div class="personBadge">F7</div>
       <div class="phoneMockup">
         <div class="phoneBar"></div>
-        <div class="phoneRow"><b>Jornada 1</b><span>18:30</span></div>
-        <div class="phoneRow"><b>Tigres vs Leones</b><span>Cancha 1</span></div>
-        <div class="phoneRow"><b>Tabla general</b><span>12 pts</span></div>
+        <div class="phoneRow"><b>Fixture</b><span>Jornada 1 · Cancha 1</span></div>
+        <div class="phoneRow"><b>Resultados</b><span>3 - 1 · Finalizado</span></div>
+        <div class="phoneRow"><b>Tabla</b><span>Pts · GF · GC · DIF</span></div>
       </div>
-      <div class="floatingCard cardOne">
-        <b>Equipos</b>
-        <span>Inscripción y plantilla</span>
-      </div>
-      <div class="floatingCard cardTwo">
-        <b>Resultados</b>
-        <span>Tabla y goleadores</span>
-      </div>
-      <div class="personBadge">F7</div>
+      <div class="floatingCard cardOne"><b>Actas de partido</b><span>Titulares, suplentes y sanciones</span></div>
+      <div class="floatingCard cardTwo"><b>Reportes</b><span>Imagen, PDF, Excel y backup</span></div>
     </div>
 
     <div class="heroCopy">
       <small>¿Cómo empezar?</small>
-      <h1>App para crear torneos de fútbol</h1>
-      <p>Administra tu torneo paso a paso: equipos, formatos, fixture automático, tablas, estadísticas, pagos, reportes y credenciales QR.</p>
+      <h1>App para organizar ligas y torneos de Fútbol 7</h1>
+      <p>Plataforma para gestionar resultados, tablas, goleadores, actas, pagos, reportes y credenciales. Crea tu torneo y administra cada jornada desde el celular o computadora.</p>
       <div class="quickSteps">
-        <button onclick="startFlow('carga')"><span>✓</span>Crea un Torneo</button>
-        <button onclick="startFlow('equipos')"><span>✓</span>Inscribe Equipos</button>
-        <button onclick="startFlow('calendario')"><span>✓</span>Genera Partidos</button>
-        <button onclick="startFlow('resultados')"><span>✓</span>Registra resultados</button>
+        <button onclick="startFlow('crearTorneo')"><span>✓</span>Crea un Torneo</button>
+        <button onclick="startFlow('inscripcionEquipos')"><span>✓</span>Inscribe Equipos</button>
+        <button onclick="startFlow('fixture')"><span>✓</span>Genera Partidos</button>
+        <button onclick="startFlow('capturaResultados')"><span>✓</span>Registra resultados</button>
       </div>
       <div class="heroActions">
-        <button class="primaryCta" onclick="startFlow('carga')">Crear Torneo Ahora</button>
+        <button class="primaryCta" onclick="startFlow('crearTorneo')">Crear Torneo Ahora</button>
         <button class="secondaryCta" onclick="openLogin()">Acceso administrador</button>
       </div>
     </div>
   </section>
 
+  <section class="summaryCards">
+    <button onclick="startFlow('crearTorneo')"><b>Administra Torneos</b><span>Equipos, partidos, tablas de posiciones, resultados y reportes.</span></button>
+    <button onclick="startFlow('inscripcionEquipos')"><b>Gestiona Equipos</b><span>Jugadores, fichas de partido, titulares, suplentes y estadísticas.</span></button>
+    <button onclick="startFlow('capturaResultados')"><b>Control de partido</b><span>Goles, tarjetas, asistencias, alineaciones, actas y sanciones.</span></button>
+  </section>
+
   <section id="fixture" class="howSection">
     <div class="howCopy">
       <h2>Cómo funciona nuestra app para crear torneos de fútbol</h2>
-      <p>Crea tu torneo desde cero: registra equipos, arma partidos y administra resultados, tarjetas, goleadores, asistencias, pagos, reportes y credenciales QR. Todo desde una sola plataforma.</p>
-      <button class="orangeCta" onclick="startFlow('carga')">Crear Mi Torneo</button>
+      <p>Crea tu torneo desde cero: registra equipos, arma los partidos y gestiona cada partido con resultados, tarjetas, goleadores, asistencias, alineaciones, actas y más. Todo desde una sola plataforma.</p>
+      <button class="orangeCta" onclick="startFlow('crearTorneo')">Crear Mi Torneo</button>
     </div>
 
     <div class="featureList">
-      <button onclick="startFlow('equipos')" class="featureCard green">
-        <b>Inscripción Equipos en Torneo</b>
+      <button onclick="startFlow('inscripcionEquipos')" class="featureCard green">
+        <b>Inscripción de Equipos en Torneo</b>
         <span>Tú o los capitanes pueden gestionar sus equipos, jugadores y fichas de partido.</span>
       </button>
-      <button onclick="startFlow('calendario')" class="featureCard orange">
-        <b>Crear Calendarios de partidos</b>
-        <span>Genera o registra partidos con jornada, cancha, hora, local y visitante.</span>
+      <button onclick="startFlow('fixture')" class="featureCard orange">
+        <b>Crear Calendarios de Partidos</b>
+        <span>Incluye generador automático de partidos. Si prefieres, también puedes subir tu propio fixture.</span>
       </button>
       <button onclick="startFlow('jugadores')" class="featureCard blue">
         <b>Registrar Jugadores en el Torneo</b>
-        <span>Gestiona jugadores, posiciones, números, plantillas y estadísticas.</span>
+        <span>Gestiona jugadores, posiciones, números, fotos, documentos y estadísticas completas.</span>
       </button>
-      <button onclick="startFlow('reportes')" class="featureCard green">
-        <b>Descarga Reportes</b>
-        <span>Descarga Excel, PDF, backup y reportes para controlar tu liga.</span>
+      <button onclick="startFlow('reportesImagen')" class="featureCard green">
+        <b>Descarga Reportes en Imagen</b>
+        <span>Genera imágenes de partidos, tablas, rankings, resultados y credenciales para compartir.</span>
       </button>
+    </div>
+  </section>
+
+  <section id="torneos" class="modeSection">
+    <div class="modeCard">
+      <small>¿Es solo un torneo básico?</small>
+      <h2>Crear Torneos Básicos: resultados y tabla de posiciones</h2>
+      <p>Registra partidos, captura resultados y genera la tabla automáticamente. Ideal para iniciar rápido con pocos datos.</p>
+      <ul>
+        <li>Completamente operable</li>
+        <li>Hasta 40 equipos como referencia operativa</li>
+        <li>Tabla automática</li>
+        <li>Reportes gratuitos de control interno</li>
+      </ul>
+      <button onclick="startFlow('crearBasico')">Crear Torneo Básico</button>
+    </div>
+    <div class="modeCard">
+      <small>¿Torneo completo y profesional?</small>
+      <h2>Gestión avanzada de liga completa</h2>
+      <p>Evoluciona a una administración con jugadores, estadísticas, actas, sanciones, pagos, reportes y credenciales.</p>
+      <ul>
+        <li>Fixture automático</li>
+        <li>Tabla de posiciones automática</li>
+        <li>Registro de sanciones</li>
+        <li>Menos problemas y más tiempo para operar</li>
+      </ul>
+      <button onclick="startFlow('crearProfesional')">Crear Torneo Profesional</button>
     </div>
   </section>
 
@@ -100,7 +127,7 @@
       <div>
         <small>Panel operativo</small>
         <h2>Administración LigaPro F7</h2>
-        <p>Accede solo a lo necesario. Menos saturación, más operación real.</p>
+        <p>Escoge la pantalla que necesitas. Cada pantalla contiene campos específicos para operar el torneo sin saturación.</p>
       </div>
       <div id="roleBox" class="roleBox">Sin sesión</div>
     </div>
@@ -144,12 +171,12 @@
   </section>
 
   <section id="guias" class="guideSection">
-    <h2>Guía rápida</h2>
+    <h2>Guías operativas</h2>
     <div class="guideGrid">
-      <div><b>1</b><span>Configura el torneo</span></div>
-      <div><b>2</b><span>Registra equipos y jugadores</span></div>
-      <div><b>3</b><span>Programa partidos</span></div>
-      <div><b>4</b><span>Captura resultados y pagos</span></div>
+      <div><b>1</b><span>Define formato, categoría, reglas y puntos.</span></div>
+      <div><b>2</b><span>Inscribe equipos, capitanes y jugadores.</span></div>
+      <div><b>3</b><span>Genera fixture, jornadas, cancha y horarios.</span></div>
+      <div><b>4</b><span>Captura resultados, tarjetas, actas y reportes.</span></div>
     </div>
   </section>
 </main>
@@ -175,13 +202,13 @@
 <img id="mock" src="/assets/login.png" alt="" style="display:none"/>
 
 <div id="mobileBottomNav" class="mobileBottomNav">
-  <button type="button" onclick="goHome()">Inicio</button>
-  <button type="button" onclick="setModule('equipos')">Equipos</button>
-  <button type="button" onclick="setModule('jugadores')">Jugadores</button>
-  <button type="button" onclick="setModule('calendario')">Calendario</button>
-  <button type="button" onclick="setModule('pagos')">Pagos</button>
+  <button type="button" onclick="goLanding()">Inicio</button>
+  <button type="button" onclick="startFlow('fixture')">Fixture</button>
+  <button type="button" onclick="startFlow('capturaResultados')">Resultados</button>
+  <button type="button" onclick="startFlow('tabla')">Tabla</button>
+  <button type="button" onclick="document.getElementById('guias')?.scrollIntoView({behavior:'smooth'})">Guías</button>
 </div>
 
-<script src="/app.js?v=1600"></script>
+<script src="/app.js?v=1700"></script>
 </body>
 </html>

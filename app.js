@@ -11,13 +11,15 @@ let mobileScreenOpen=false;
 
 const modules=[
  ["inicio","Inicio","assets/inicio.png"],
- ["carga","Crear torneo","assets/equipos.png"],
- ["equipos","Equipos","assets/equipos.png"],
+ ["crearTorneo","Crear torneo","assets/equipos.png"],
+ ["inscripcionEquipos","Inscripción equipos","assets/equipos.png"],
+ ["fixture","Fixture","assets/calendario.png"],
+ ["capturaResultados","Resultados y actas","assets/resultados.png"],
  ["jugadores","Jugadores","assets/registro_qr.png"],
- ["calendario","Fixture","assets/calendario.png"],
- ["resultados","Resultados","assets/resultados.png"],
  ["tabla","Tabla","assets/tabla.png"],
+ ["sanciones","Sanciones","assets/resultados.png"],
  ["pagos","Pagos","assets/pagos.png"],
+ ["reportesImagen","Reportes imagen","assets/estadisticas.png"],
  ["masiva","Carga masiva","assets/estadisticas.png"],
  ["reportes","Reportes","assets/estadisticas.png"]
 ];
@@ -82,6 +84,13 @@ function activeSeason(){return data.seasons?.[0]?.id||"TEMP-REAL"}
 function activeCategory(){return data.categories?.[0]?.id||"CAT-REAL"}
 function slugId(prefix, text){return prefix+"-"+String(text||"REAL").normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-zA-Z0-9]+/g,"").substring(0,8).toUpperCase()+"-"+String(Date.now()).slice(-4)}
 
+
+function fieldBox(title, fields, note){
+ return `<div class="formBox uxFields"><h3>${title}</h3>${note?`<p>${note}</p>`:""}<div class="fieldGrid">${fields.map(f=>`<label><span>${f}</span><input placeholder="${f}"/></label>`).join("")}</div></div>`;
+}
+function infoRows(items){
+ return `<div class="v17InfoRows">${items.map(it=>`<div class="row"><b>${it[0]}</b><small>${it[1]}</small><span class="pill">${it[2]||"Operativo"}</span></div>`).join("")}</div>`;
+}
 function render(){
  if(!data)return;
  document.body.classList.toggle("logged-in", !!currentUser);
@@ -120,7 +129,69 @@ function render(){
  }
 
 
- if(module==="pwa"){
+ 
+ if(module==="crearTorneo" || module==="crearBasico" || module==="crearProfesional"){
+   title = module==="crearBasico" ? "Crear torneo básico" : module==="crearProfesional" ? "Crear torneo profesional" : "Crear torneo";
+   desc = "Define la estructura del torneo antes de registrar equipos y partidos.";
+   rows=[
+    ["Datos generales","Nombre del torneo, deporte, sede, categoría y responsable.","Configurar"],
+    ["Formato de competencia","Liga, grupos, liguilla, copa, ida/vuelta o formato mixto.","Formato"],
+    ["Reglas de tabla","Puntos por victoria, empate, derrota y criterios de desempate.","Tabla"],
+    ["Calendario base","Fecha de inicio, fecha final, jornadas, canchas y horarios.","Fixture"]
+   ];
+   customHtml = fieldBox("Campos del torneo", ["Nombre del torneo","Deporte / modalidad","Categoría","Sede o complejo","Tipo de torneo","Número de equipos","Número de grupos","Fecha de inicio","Fecha de cierre","Responsable"], "Estos campos replican la estructura necesaria para crear un torneo como plataforma profesional.");
+ }
+ if(module==="inscripcionEquipos"){
+   title="Inscripción de equipos"; desc="Gestiona equipos, capitanes, logos, jugadores y fichas de partido.";
+   rows=[
+    ["Equipo","Alta de nombre, escudo, color, categoría y capitán.","Equipo"],
+    ["Capitán","Datos de contacto del responsable del equipo.","Capitán"],
+    ["Plantilla","Jugadores, dorsales, posiciones y estado de inscripción.","Plantilla"],
+    ["Ficha de partido","Titulares, suplentes y observaciones por jornada.","Acta"]
+   ];
+   customHtml = fieldBox("Campos de inscripción", ["Nombre del equipo","Categoría","Color uniforme","Capitán","Teléfono capitán","Correo","Logo / escudo","Estatus inscripción"], "Permite que el administrador o capitán organice su equipo y plantilla.");
+ }
+ if(module==="fixture"){
+   title="Fixture / Calendario de partidos"; desc="Programa jornadas, partidos, horarios, canchas y cruces.";
+   rows=[
+    ["Generador automático","Arma jornadas por round robin, grupos o liga regular.","Automático"],
+    ["Carga manual","Permite subir partidos ya definidos.","Manual"],
+    ["Jornada y cancha","Controla fecha, hora, cancha, local y visitante.","Operación"],
+    ["Reprogramación","Marca partidos pendientes, jugados o reprogramados.","Control"]
+   ];
+   customHtml = fieldBox("Campos de partido", ["Jornada","Fecha","Hora","Cancha","Equipo local","Equipo visitante","Árbitro","Estatus partido"], "Puedes generar el fixture o cargar tus propios partidos.");
+ }
+ if(module==="capturaResultados"){
+   title="Resultados, actas y estadísticas"; desc="Captura resultados con goles, tarjetas, asistencias, alineaciones y acta.";
+   rows=[
+    ["Marcador","Goles local, visitante y estatus del partido.","Resultado"],
+    ["Goleadores","Jugador, minuto, equipo y tipo de gol.","Goles"],
+    ["Tarjetas","Amarillas, rojas y observaciones disciplinarias.","Sanción"],
+    ["Acta de partido","Titulares, suplentes, asistencias y notas del árbitro.","Acta"]
+   ];
+   customHtml = fieldBox("Campos de resultado", ["Partido","Goles local","Goles visitante","Goleadores","Asistencias","Tarjetas amarillas","Tarjetas rojas","Observaciones / acta"], "Esta pantalla concentra control deportivo y acta de partido.");
+ }
+ if(module==="sanciones"){
+   title="Registro de sanciones"; desc="Controla tarjetas, suspensión, motivo y reincorporación.";
+   rows=[
+    ["Tarjetas amarillas","Acumulación y advertencias por jugador.","Disciplina"],
+    ["Tarjetas rojas","Expulsiones y fechas de suspensión.","Sanción"],
+    ["Suspensiones","Número de partidos suspendidos y cumplimiento.","Control"],
+    ["Historial","Consulta por jugador, equipo y jornada.","Histórico"]
+   ];
+   customHtml = fieldBox("Campos de sanción", ["Jugador","Equipo","Partido","Tipo de sanción","Jornada","Partidos suspendido","Motivo","Estatus"], "Evita problemas con actas, fichas y control disciplinario.");
+ }
+ if(module==="reportesImagen"){
+   title="Reportes en imagen"; desc="Genera piezas para compartir resultados, tablas, rankings y credenciales.";
+   rows=[
+    ["Imagen de partido","Resultado final con equipos, marcador y jornada.","Compartir"],
+    ["Tabla de posiciones","Publicación rápida de clasificación.","Tabla"],
+    ["Rankings","Goleadores, porteros, tarjetas y asistencias.","Ranking"],
+    ["Credenciales QR","Imagen de jugador para validación.","QR"]
+   ];
+   customHtml = fieldBox("Configuración de imagen", ["Tipo de reporte","Torneo","Jornada","Equipo","Jugador","Formato","Marca / patrocinador","Observaciones"], "Diseñado para publicar en WhatsApp, redes o pantalla del torneo.");
+ }
+if(module==="pwa"){
    title="Instalar como app";
    desc="PWA instalable con ícono y pantalla completa.";
    rows=[
@@ -437,7 +508,7 @@ async function showMobileInfo(){
 
 
 
-/* ===== V1.6 DEPÓRSTAR UX Instalación ===== */
+/* ===== V1.7 CONTENIDO DEPÓRSTAR Instalación ===== */
 let deferredPwaPrompt = null;
 
 function isStandalonePWA(){
